@@ -11,7 +11,7 @@ namespace WhiteSolution.CustomControl
         private ICommand _innerSelectedCommand;
         private FlexLayout _flxMedia;
 
-        public double Spacing { get; set; }
+        public Thickness ItemMargin { get; set; }
 
         public event EventHandler SelectedItemChanged;
 
@@ -112,7 +112,7 @@ namespace WhiteSolution.CustomControl
             {
                 return null;
             }
-            view.Margin = Spacing;
+            view.Margin = ItemMargin;
             view.BindingContext = item;
 
             var gesture = new TapGestureRecognizer

@@ -13,7 +13,7 @@
               BackgroundColor="WhiteSmoke">
 
             <customcontrol:GridView AutomationId="productGridView"
-                                Spacing="5"
+                                ItemMargin="5"
                                 HorizontalOptions="FillAndExpand"
                                 VerticalOptions="FillAndExpand"
                                 SelectedCommand="{Binding SelectProductCommand}"

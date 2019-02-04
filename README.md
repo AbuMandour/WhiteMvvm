@@ -1,8 +1,6 @@
 # WhiteMvvm
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
-
-
 ## Get Start
 you can download the template from here
 then make sure that solution build successfully
@@ -129,50 +127,23 @@ any application noew must have at least on popup, here we use Popup Page Plugin 
 
 ### Services
 in white mvvm we implement many service such as Navigation, Dialog or Device Utilities
+
 #### Api
 till now we use refit plugin to call api, because make Http Client call more simple and less code
 Refit depend on interface contain method without body and attributes over methods 
 
 #### Dialog
-Dialog service is an assembly has responsablty of any regular popup aslo loading indicator
+Dialog service is an assembly has responsablty of any regular popup aslo loading indicator we depend on UserDialogs plugin yo implement this all dialog
 
-##### Methods
-- ShowAlertAsync(string message, string title, string buttonLabel): this void method use to show dialog to user with meesage, title and one button
-- ShowConfirmMessageAsync(string message, string title = "Confirm", string cancelText = "Cancel",string okText = "Ok"): this bool method that return whatever user select ok or cancel with option to change ok and cancel labels
-- ShowLoading() : to show loading indicator
-- HideLoading() : to Hide Loading indicator
- 
 #### Navigation 
 in navigation in white mvvm we go with the of most of mvvm framework and Xamarin recommendation way which depend on navigate view model instaed of pages to reach to an totally separated code
-the aim to make view only response for desgin and make navigation system in view model
-
-##### Methods
-- NavigateToAsync<TViewModel>(object parameter = null): generic async method to push page in navigation stack or start app with navgation stack take one optinal paramter which will send to view mdoel type you inserted
-- NavigateModalToAsync<TViewModel>(object parameter = null): generic async method to push page as modal or start app with this page take one optinal paramter which will send to view mdoel type you inserted
-- InitializeAsync() : method to Initialize Navigation service in app class where we can write how we will begin or navigation 
-- NavigateToTabbedAsync(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null): async method to naviagte to tabbed page which take list of page container class and tabbed page as optional parameter
-- NavigateToMasterDetailsAsync(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false) : async method to navigate to master detail page with master and detail page as paramter aslo if you want to keep navigation bar or not as optinal paramter also if you want to use custom master detial page
-- ChangeDetailPage(PageContainer pageContainer) : mehtod to change details page with another on take one paramter page container
-- AddPageToTabbedPage(PageContainer pageContainer) : method to add tabbed page in run time take one paramter page container
-
-##### Classes
-###### PageContainer 
- class use as contianer in navigation to increse options when use navigation 
-*Properties*
-- Parameter: param to pass to view model 
-- ViewModel: viewmodel that wired with page
-- IsNavigationPage: if we want to make this page start as navigation page
-- PageName: name of page we will navigate, note that name will use in tabbed page
+the aim to make view only response for desgin and make navigation system in view model but here naming convention is very imported as all pages should end with view and all viewmodels should end with ViewModel and to use master details page and tabbed page we must use page container class which has options and navigate from view model
 
 #### Utilities
 assembly which contain all Xamarin Essentail services with interface approach and mocks for unit test
 
 ### Transitions
 Transition is an layer between models and api service to separate thoese layer and make change more clear and has not side effect in code
-
-#### Classes
-##### BaseTransitional
-this class has one method to convert from transitionl object to model object, this method is virtual which we can override and map our transitional to model
 
 ### Utilities
 
@@ -204,12 +175,11 @@ Validation can be triggered manually for a view model property. For example, thi
 This method clears the Errors collection, and then retrieves any validation rules that were added to the object's Validations collection. The Check method for each retrieved validation rule is executed, and the ValidationMessage property value for any validation rule that fails to validate the data is added to the Errors collection of the ValidatableObject<T> instance. Finally, the IsValid property is set, and its value is returned to the calling method, indicating whether validation succeeded or failed.
 
 ### ViewModel
-in view model assembly we used base viewmodel class and view model locator with unity container
+view model is a memeber of MVVM architechture, in our view model assembly we used base viewmodel class and view model locator with unity container
 
 #### Base ViewModel
 in base view model we wire page and popup event with page by use virtual methods and call it in base page aslo we add an initilaizer method which run once in navigation between pages
 and we also call dialog and navigation service that we be with us in every class drivid this class
 
 #### ViewModel Locator 
-if we want to use dependancy injection we must select container, here we choose Unity with some additional methods 
-
+if we want to use dependancy injection we must select container, here we choose Unity with some additional methods, main concept in locator to auto wire view with view model and that must make naming convention more important and use mock service and update them when unit test run 

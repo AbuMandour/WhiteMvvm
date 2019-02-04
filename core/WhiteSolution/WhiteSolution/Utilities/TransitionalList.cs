@@ -5,9 +5,9 @@ using System.Text;
 using WhiteSolution.Models;
 using WhiteSolution.Transitions;
 
-namespace WhiteSolution.Utils
+namespace WhiteSolution.Utilities
 {
-    public class TransitionList<TBaseTransition> : Collection<TBaseTransition> where TBaseTransition : BaseTransition
+    public class TransitionalList<TBaseTransition> : Collection<TBaseTransition> where TBaseTransition : BaseTransitional
     {
         public virtual ObservableRangeCollection<TBaseModel> ToModel<TBaseModel>() where TBaseModel : BaseModel , new()
         {

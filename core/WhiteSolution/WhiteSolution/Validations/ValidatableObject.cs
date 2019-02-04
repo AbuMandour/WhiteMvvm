@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WhiteSolution.Utils;
+using WhiteSolution.Utilities;
 
 namespace WhiteSolution.Validations
 {
@@ -10,7 +10,6 @@ namespace WhiteSolution.Validations
     {
         private readonly List<IValidationRule<T>> _validations;
         private List<string> _errors;
-        private T _value;
         private bool _isValid;
 
         public List<IValidationRule<T>> Validations => _validations;

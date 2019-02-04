@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WhiteSolution.Utils.WeakEvent;
 using Xamarin.Forms;
 
-namespace WhiteSolution.Utils
+namespace WhiteSolution.Utilities
 {
     public class TaskCommand : ICommand
     {
@@ -15,7 +14,6 @@ namespace WhiteSolution.Utils
         private Func<object, Task> _execute;
         private bool _continueOnCapturedContext;
         private Func<object, bool> _canExecute;
-        readonly WeakEventManager _weakEventManager = new WeakEventManager();
         #endregion
 
         public TaskCommand(Func<object, Task> execute, Func<object, bool> canExecute = null, bool continueOnCapturedContext = true)
@@ -49,7 +47,7 @@ namespace WhiteSolution.Utils
         }
         public void RaiseCanExecuteChanged()
         {
-            _weakEventManager.HandleEvent(this, EventArgs.Empty, nameof(CanExecuteChanged));
+            CanExecuteChanged?.Invoke(null, new EventArgs());
         }
     }
 }

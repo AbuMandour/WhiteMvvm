@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using WhiteSolution.Services.Dialog;
 using WhiteSolution.Services.Navigation;
-using WhiteSolution.Utils;
+using WhiteSolution.Utilities;
 
 namespace WhiteSolution.ViewModels.Bases
 {

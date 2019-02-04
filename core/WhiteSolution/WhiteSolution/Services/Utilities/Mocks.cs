@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace WhiteSolution.Services.Utilities
+namespace WhiteSolution.Services.DeviceUtilities
 {
     public class Mocks
     {

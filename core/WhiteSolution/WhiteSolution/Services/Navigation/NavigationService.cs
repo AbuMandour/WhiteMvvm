@@ -40,28 +40,6 @@ namespace WhiteSolution.Services.Navigation
         {
             return InternalNavigateModalToAsync(typeof(TViewModel), parameter);
         }
-        private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter)
-        {
-            var page = CreatePage(viewModelType);
-
-            if (Application.Current.MainPage is NavigationPage navigationPage)
-            {
-                await navigationPage.Navigation.PushModalAsync(page);
-            }
-            else
-            {
-                Application.Current.MainPage = new NavigationPage(page);
-            }
-
-            if (page != null)
-            {
-                if (page.BindingContext is BaseViewModel viewModel)
-                {
-                    await viewModel.InternalInitializeAsync(parameter);
-                }
-
-            }
-        }
         /// <summary>
         /// 
         /// </summary>
@@ -232,6 +210,28 @@ namespace WhiteSolution.Services.Navigation
             if (Application.Current.MainPage is NavigationPage navigationPage)
             {
                 await navigationPage.PushAsync(page);
+            }
+            else
+            {
+                Application.Current.MainPage = new NavigationPage(page);
+            }
+
+            if (page != null)
+            {
+                if (page.BindingContext is BaseViewModel viewModel)
+                {
+                    await viewModel.InternalInitializeAsync(parameter);
+                }
+
+            }
+        }
+        private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter)
+        {
+            var page = CreatePage(viewModelType);
+
+            if (Application.Current.MainPage is NavigationPage navigationPage)
+            {
+                await navigationPage.Navigation.PushModalAsync(page);
             }
             else
             {

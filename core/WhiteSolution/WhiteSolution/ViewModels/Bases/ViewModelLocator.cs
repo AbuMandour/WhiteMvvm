@@ -1,19 +1,14 @@
-﻿using WhiteSolution.Services;
-using WhiteSolution.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
 using Unity;
 using Unity.Lifetime;
 using WhiteSolution.Services.Home;
 using WhiteSolution.Services.Navigation;
-using WhiteSolution.Services.Utilities;
+using WhiteSolution.Services.DeviceUtilities;
 using Xamarin.Forms;
-using System.Reflection;
 using System.Globalization;
 using WhiteSolution.Services.Dialog;
 using Microsoft.AppCenter.Crashes;
-using static WhiteSolution.Services.Utilities.Mocks;
+using static WhiteSolution.Services.DeviceUtilities.Mocks;
 
 namespace WhiteSolution.ViewModels.Bases
 {
@@ -58,15 +53,15 @@ namespace WhiteSolution.ViewModels.Bases
         {
             try
             {
-                var view = bindable as Element;
-                if (view == null)
+                if (!(bindable is Element view))
                 {
                     return;
                 }
 
                 var viewType = view.GetType();
-
                 var viewName = viewType.Name.Replace("Page", "ViewModel");
+                if (viewType.Namespace == null)
+                    return;
                 var namespaceName = viewType.Namespace.Replace("Views", "ViewModels");
                 var viewAssemblyName = string.Format(CultureInfo.InvariantCulture, "{0}.{1}", namespaceName, viewName);
                 var viewModelType = Type.GetType(viewAssemblyName);
@@ -89,7 +84,7 @@ namespace WhiteSolution.ViewModels.Bases
         }
         public static bool GetAutoWireViewModel(BindableObject bindable)
         {
-            return (bool)bindable.GetValue(ViewModelLocator.AutoWireViewModelProperty);
+            return (bool)bindable.GetValue(AutoWireViewModelProperty);
         }
 
         public static void SetAutoWireViewModel(BindableObject bindable, bool value)

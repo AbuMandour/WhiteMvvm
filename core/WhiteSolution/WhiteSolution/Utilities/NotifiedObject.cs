@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
 
-namespace WhiteSolution.Utils
+namespace WhiteSolution.Utilities
 {
     public class NotifiedObject : INotifyPropertyChanged
     {

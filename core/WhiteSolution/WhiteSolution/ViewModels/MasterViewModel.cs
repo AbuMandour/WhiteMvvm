@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using WhiteSolution.Services.Navigation;
-using WhiteSolution.Utils;
+using WhiteSolution.Utilities;
 using WhiteSolution.ViewModels.Bases;
 
 namespace WhiteSolution.ViewModels

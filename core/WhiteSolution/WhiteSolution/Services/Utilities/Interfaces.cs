@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
-namespace WhiteSolution.Services.Utilities
+namespace WhiteSolution.Services.DeviceUtilities
 {
     public interface IAccelerometer
     {

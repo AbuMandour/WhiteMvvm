@@ -5,7 +5,7 @@ using WhiteSolution.Models;
 
 namespace WhiteSolution.Transitions
 {
-    public class BaseTransition
+    public class BaseTransitional
     {
         public virtual TBaseModel ToModel<TBaseModel>() where TBaseModel : BaseModel, new()
         {

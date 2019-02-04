@@ -1,12 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WhiteSolution.Services.Home;
 using WhiteSolution.ViewModels.Bases;
 using WhiteSolution.Models;
-using WhiteSolution.Utils;
+using WhiteSolution.Utilities;
 using System.Collections.Generic;
 using WhiteSolution.Services.Navigation;
-using WhiteSolution.Services.Utilities;
+using WhiteSolution.Services.DeviceUtilities;
 
 namespace WhiteSolution.ViewModels
 {
@@ -69,7 +70,8 @@ namespace WhiteSolution.ViewModels
             }
             catch (System.Exception ex)
             {
-                throw;
+                Console.WriteLine(ex);
+                return new ObservableRangeCollection<Product>();
             }
         }
     }

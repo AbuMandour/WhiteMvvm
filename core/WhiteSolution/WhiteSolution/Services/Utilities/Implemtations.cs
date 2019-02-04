@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace WhiteSolution.Services.Utilities
+namespace WhiteSolution.Services.DeviceUtilities
 {
 	public class AccelerometerService :  IAccelerometer
     { 	

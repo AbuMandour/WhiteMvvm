@@ -2,18 +2,17 @@
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
 ## Get Start
-you can download the template from here
-then make sure that solution build successfully
+you can download the nuget from here
+then you should call this method in each platform
 
+***Android***: WhiteMvvm.Droid.PlatformDorid.Init(this,savedInstanceState);
+
+***iOS***: WhiteMvvm.Droid.PlatformDorid.Init();
  
 ## Documentation
 
 White MVVM build to be more clear to modify and here we will explain how every part of solution work
 
-
-### Assets
-
-Assets place where we can put or CSS files if we decided to use CSS to style our application
 
 ### Behaviors
 Behaviours enable you to implement code that you would normally have to write as code-behind because it directly interacts with the API of the control in such a way that it can be concisely attached to the control.
@@ -72,9 +71,6 @@ and this for XAML
 
         </ListView>
 
-### Constants
-
-to make our solution more maintainable we should use all constants as global variables so Constants assembly will hold all keys in class such as _API keys_ 
 
 ### CustomControls
 every Xamarin Forms application need a custom control and renderers to for custom UI in Custom Control assembly will have all responsible to hold custom controls, for now, we only have a _Grid View_ 
@@ -119,18 +115,20 @@ grid view is a control simply make grid layout bindable object with the data sou
                 </customcontrol:GridView.ItemTemplate>
             </customcontrol:GridView>`
 
-### Models
-model is an essential member in most of the MVVM architecture, in White MVVM we create a Base Model class which inherited from Notified Object and have an ID property which will be useful to make every object of model recognizable.
+### Bases
 
-### Popup
-any application new must have at least on a popup, here we use Popup Page Plugin for Xamarin Forms, and to wire popup to view model we use base popup class and call on lifetime virtual methods.
+
+**BaseModel**: in White MVVM we create a Base Model class which inherited from Notified Object and have an ID property which will be useful to make every object of model recognizable.
+
+**BaseTransitional**: The transition is a layer between models and API service to separate layers and make change more clear and has no side effect in other modules, any class that inherited from Base transitional class has option to override ToModel method where you can mapping from api to model
+
+**BaseViewModel**: in base view model we wire page and popup events with the page by using virtual methods also we add an initializer method which run once when app navigate from viewmodel to viewmodel 
+and we also initialize dialog and navigation service that we be with us in every class inherited this class
+
+**BaseViewModelLocator**: if we want to use dependency injection we must select a container, here we choose Unity with some additional methods, the main concept in our locator is auto-wire view with view model and use mock service and update them during the unit test run
 
 ### Services
 in white MVVM we implement many services such as Navigation, Dialog or Device Utilities
-
-#### API
-till now we use refit plugin to call API because make Http Client call more simple and less code
-Refit depend on interface contain method without body and attributes over methods 
 
 #### Dialog
 Dialog service is an assembly has the responsibility of any regular popup also loading indicator we depend on UserDialogs plugin yo implement this all dialog
@@ -139,11 +137,8 @@ Dialog service is an assembly has the responsibility of any regular popup also l
 navigation in white MVVM we go with the of most of the MVVM framework and Xamarin recommendation way which depend on navigating view model instead of pages to reach a totally separated code
 the aim to make view only responsible for design and make navigation system in view model but here naming convention is very imported as all pages should end with "view" and all view models should end with ViewModel and use master details page and tabbed page we must use page container class which has options and navigate from view model
 
-#### Utilities
+#### Device Utilities
 the assembly which contain all Xamarin Essential services with interface approach and mocks for unit test
-
-### Transitions
-The transition is a layer between models and API service to separate those layer and make change more clear and has no side effect in code
 
 ### Utilities
 
@@ -174,12 +169,12 @@ For validation to occur, validation rules must be added to the Validations colle
 Validation can be triggered manually for a view model property. For example, this occurs in any mobile app when the user taps the Login button on the LoginView we call Validate method which performs validation of the username and password entered by the user on the LoginView, by invoking the Validate method on each ValidatableObject<T> instance.
 This method clears the Errors collection and then retrieves any validation rules that were added to the object's Validations collection. The Check method for each retrieved validation rule is executed, and the ValidationMessage property value for any validation rule that fails to validate the data is added to the Errors collection of the ValidatableObject<T> instance. Finally, the IsValid property is set, and its value is returned to the calling method, indicating whether validation succeeded or failed.
 
-### ViewModel
-the view model is a member of MVVM architecture, in our view model assembly we used base ViewModel class and view model locator with unity container
+#### Notes:
+- you must make syre that we follow our naming conventions in naming of view and view model
+1- Views: Views.{Name}View
+2- View Models: ViewModels.{Name}ViewModel
 
-#### Base ViewModel
-in base view model we wire page and popup event with the page by using virtual methods and call it in base page also we add an initializer method which run once in navigation between pages
-and we also call dialog and navigation service that we be with us in every class inherited this class
+- we only support iOS and Android
 
-#### ViewModel Locator 
-if we want to use dependency injection we must select a container, here we choose Unity with some additional methods, the main concept in locator to auto-wire view with view model and that must make the naming convention more important and use mock service and update them when the unit test run 
+- we take validation module from *Enterprise Application Patterns eBook* as we found that the best solution for as
+

@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Acr.UserDialogs;
+
 using Foundation;
 using UIKit;
 
-namespace WhiteSolution.iOS
+namespace WhiteSample.iOS
 {
     // The UIApplicationDelegate for the application. This class is responsible for launching the 
     // User Interface of the application, as well as listening (and optionally responding) to 
@@ -23,8 +23,8 @@ namespace WhiteSolution.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            Rg.Plugins.Popup.Popup.Init();
             LoadApplication(new App());
+
             return base.FinishedLaunching(app, options);
         }
     }

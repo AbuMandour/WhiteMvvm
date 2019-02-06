@@ -4,7 +4,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Acr.UserDialogs;
 
-namespace WhiteSolution.Services.Dialog
+namespace WhiteMvvm.Services.Dialog
 {
     public class DialogMockService : IDialogService
     {

@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Acr.UserDialogs;
 
-namespace WhiteSolution.Services.Dialog
+namespace WhiteMvvm.Services.Dialog
 {
     public interface IDialogService
     {

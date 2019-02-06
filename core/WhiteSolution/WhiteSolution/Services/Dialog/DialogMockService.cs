@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Acr.UserDialogs;
 
 namespace WhiteSolution.Services.Dialog
 {
@@ -18,7 +19,7 @@ namespace WhiteSolution.Services.Dialog
             return Task.FromResult(true);
         }
 
-        public void ShowLoading()
+        public void ShowLoading(MaskType maskType)
         {
             
         }

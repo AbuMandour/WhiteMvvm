@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using WhiteSolution.Utils;
+using WhiteSolution.Utilities;
 
 namespace WhiteSolution.Models
 {

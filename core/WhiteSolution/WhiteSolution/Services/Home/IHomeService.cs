@@ -4,12 +4,12 @@ using System.Text;
 using System.Threading.Tasks;
 using WhiteSolution.Models;
 using WhiteSolution.Transitions;
-using WhiteSolution.Utils;
+using WhiteSolution.Utilities;
 
 namespace WhiteSolution.Services.Home
 {
     public interface IHomeService
     {
-        Task<TransitionList<ApiProduct>> GetProducts();
+        Task<TransitionalList<ApiProduct>> GetProducts();
     }
 }

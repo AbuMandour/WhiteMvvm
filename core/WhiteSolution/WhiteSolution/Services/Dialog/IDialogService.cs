@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Acr.UserDialogs;
 
 namespace WhiteSolution.Services.Dialog
 {
@@ -6,7 +7,7 @@ namespace WhiteSolution.Services.Dialog
     {
         Task ShowAlertAsync(string message, string title, string buttonLabel);
         Task<bool> ShowConfirmMessageAsync(string message, string title = "Confirm", string cancelText = "Cancel", string okText = "Ok");
-        void ShowLoading();
+        void ShowLoading(MaskType maskType);
         void HideLoading();
     }
 }

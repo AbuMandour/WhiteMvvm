@@ -8,7 +8,8 @@ namespace WhiteSolution.Popups
 {
     public class BasePopupPage : PopupPage
     {
-        public BaseViewModel ViewModel { get => this.BindingContext as BaseViewModel; }
+        public BaseViewModel ViewModel => this.BindingContext as BaseViewModel;
+
         protected override void OnAppearingAnimationEnd()
         {
             base.OnAppearingAnimationEnd();

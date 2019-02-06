@@ -2,8 +2,8 @@
 using System;
 using System.Threading.Tasks;
 using WhiteSolution.Transitions;
-using WhiteSolution.Services.Utilities;
-using WhiteSolution.Utils;
+using WhiteSolution.Services.DeviceUtilities;
+using WhiteSolution.Utilities;
 
 namespace WhiteSolution.Services.Home
 {
@@ -15,15 +15,15 @@ namespace WhiteSolution.Services.Home
         {
             _connectivity = connectivity;
         }
-        public async Task<TransitionList<ApiProduct>> GetProducts()
+        public async Task<TransitionalList<ApiProduct>> GetProducts()
         {
             try
             {
                 if (_connectivity.NetworkAccess != Xamarin.Essentials.NetworkAccess.Internet)
                 {
-                    return new TransitionList<ApiProduct>();
+                    return new TransitionalList<ApiProduct>();
                 }                    
-                var products = new TransitionList<ApiProduct>();
+                var products = new TransitionalList<ApiProduct>();
                 for (var i = 1; i < 20; i++)
                 {
                     var product = new ApiProduct()
@@ -41,7 +41,7 @@ namespace WhiteSolution.Services.Home
             catch (Exception ex)
             {
                 Crashes.TrackError(ex);
-                return new TransitionList<ApiProduct>();
+                return new TransitionalList<ApiProduct>();
             }
         }
     }

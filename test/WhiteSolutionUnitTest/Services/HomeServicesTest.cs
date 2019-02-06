@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteSolution.Services.Home;
-using WhiteSolution.Services.Utilities;
+using WhiteSolution.Services.DeviceUtilities;
 using WhiteSolution.ViewModels.Bases;
 
 namespace WhiteSolutionUnitTest.Services

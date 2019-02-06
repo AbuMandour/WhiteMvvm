@@ -25,48 +25,31 @@ namespace WhiteSolution.Services.Navigation
                 var viewModel = mainPage.Navigation.NavigationStack[mainPage.Navigation.NavigationStack.Count - 2].BindingContext;
                 return viewModel as BaseViewModel;
             }
-        }                
+        }
         /// <summary>
-        /// 
+        /// generic async method to push page in navigation stack or start app with navigation stack take one optional parameter which will send to view model type you inserted
         /// </summary>
         /// <typeparam name="TViewModel"></typeparam>
         /// <param name="parameter"></param>
         /// <returns></returns>
+        /// 
         public Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
+        /// <summary>
+        /// generic async method to push page as modal or start app with this page take one optional parameter which will send to view model type you inserted
+        /// </summary>
+        /// <typeparam name="TViewModel"></typeparam>
+        /// <param name="parameter"></param>
+        /// <returns></returns>
         public Task NavigateModalToAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             return InternalNavigateModalToAsync(typeof(TViewModel), parameter);
         }
-        private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter)
-        {
-            var page = CreatePage(viewModelType);
-
-            if (Application.Current.MainPage is NavigationPage navigationPage)
-            {
-                await navigationPage.Navigation.PushModalAsync(page);
-            }
-            else
-            {
-                Application.Current.MainPage = new NavigationPage(page);
-            }
-
-            if (page != null)
-            {
-                if (page.BindingContext is BaseViewModel viewModel)
-                {
-                    await viewModel.InternalInitializeAsync(parameter);
-                }
-
-            }
-        }
         /// <summary>
-        /// 
+        /// method to Initialize Navigation service in app class where we can write how we will begin or navigation 
         /// </summary>
-        /// <param name="viewModelType"></param>
-        /// <param name="parameter"></param>
         /// <returns></returns>
         public async Task InitializeAsync()
         {
@@ -93,6 +76,12 @@ namespace WhiteSolution.Services.Navigation
             await NavigateToAsync<HomeViewModel>();
 
         }
+        /// <summary>
+        /// async method to navigate to tabbed page which take list of page container class and tabbed page as optional parameter
+        /// </summary>
+        /// <param name="pageContainers"></param>
+        /// <param name="tabbedPage"></param>
+        /// <returns></returns>
         public async Task NavigateToTabbedAsync(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null)
         {
             if (pageContainers.Count > 1)
@@ -135,6 +124,14 @@ namespace WhiteSolution.Services.Navigation
                 }
             }
         }
+        /// <summary>
+        /// async method to navigate to master detail page with master and detail page as parameter also if you want to keep navigation bar or not as optional parameter also if you want to use custom master detail page
+        /// </summary>
+        /// <param name="master"></param>
+        /// <param name="detail"></param>
+        /// <param name="masterDetailPage"></param>
+        /// <param name="hasNavBar"></param>
+        /// <returns></returns>
         public async Task NavigateToMasterDetailsAsync(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)
         {
             if (master == null || detail == null)
@@ -179,6 +176,11 @@ namespace WhiteSolution.Services.Navigation
             await masterViewModel.InitializeAsync(master.Parameter);
             await detailViewModel.InitializeAsync(detail.Parameter);
         }
+        /// <summary>
+        /// method to change details page with another on take one parameter page container
+        /// </summary>
+        /// <param name="pageContainer"></param>
+        /// <returns></returns>
         public async Task ChangeDetailPage(PageContainer pageContainer)
         {
             var modalStack = Application.Current.MainPage.Navigation.ModalStack;
@@ -212,6 +214,11 @@ namespace WhiteSolution.Services.Navigation
                 masterDetailNavigation.IsPresented = false;
             }
         }
+        /// <summary>
+        /// method to add tabbed page in run time take one parameter page container
+        /// </summary>
+        /// <param name="pageContainer"></param>
+        /// <returns></returns>
         public async Task AddPageToTabbedPage(PageContainer pageContainer)
         {
             var modalStack = Application.Current.MainPage.Navigation.ModalStack;
@@ -223,7 +230,7 @@ namespace WhiteSolution.Services.Navigation
                 tabbedPage.Children.Add(pageContainer.IsNavigationPage ? new NavigationPage(page) : page);
                 await pageContainer.ViewModel.InternalInitializeAsync(pageContainer.Parameter);
             }
-        }
+        }        
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
 
@@ -232,6 +239,28 @@ namespace WhiteSolution.Services.Navigation
             if (Application.Current.MainPage is NavigationPage navigationPage)
             {
                 await navigationPage.PushAsync(page);
+            }
+            else
+            {
+                Application.Current.MainPage = new NavigationPage(page);
+            }
+
+            if (page != null)
+            {
+                if (page.BindingContext is BaseViewModel viewModel)
+                {
+                    await viewModel.InternalInitializeAsync(parameter);
+                }
+
+            }
+        }
+        private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter)
+        {
+            var page = CreatePage(viewModelType);
+
+            if (Application.Current.MainPage is NavigationPage navigationPage)
+            {
+                await navigationPage.Navigation.PushModalAsync(page);
             }
             else
             {

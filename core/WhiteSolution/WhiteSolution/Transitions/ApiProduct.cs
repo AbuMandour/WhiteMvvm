@@ -5,7 +5,7 @@ using WhiteSolution.Models;
 
 namespace WhiteSolution.Transitions
 {
-    public class ApiProduct : BaseTransition
+    public class ApiProduct : BaseTransitional
     {
         public string FirstName { get; set; }
         public string Price { get; set; }

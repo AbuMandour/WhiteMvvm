@@ -38,7 +38,7 @@ namespace WhiteMvvmUnitTest.Services
         [TestCleanup]
         public override void CleanUpTest()
         {
-            BaseViewModelLocator.UpdateDependencies(false);
+            BaseViewModelLocator.UpdateDependenciesinternal(false);
         }
     }
 }

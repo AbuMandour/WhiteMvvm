@@ -16,10 +16,10 @@ namespace WhiteMvvmUnitTest.Services
         [TestMethod]
         public async Task InitializeAppNavigation()
         {
-            //Arange                      
+            //Arrange                      
             var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
             //Act
-            //await navigationService.InitializeAsync();
+            await navigationService.InitializeAsync<HomeViewModel>();
             //Assert
             var homePage = Application.Current.MainPage.Navigation.NavigationStack.Where(x => x.BindingContext.GetType() == typeof(HomeViewModel));
             Assert.IsNotNull(homePage);
@@ -53,7 +53,6 @@ namespace WhiteMvvmUnitTest.Services
         public void NavigateToTabbedPage()
         {
             //Arrange
-            BaseViewModelLocator.UpdateDependencies(true);
             var pageContainers = new List<PageContainer>
             {
                 new PageContainer()
@@ -141,7 +140,7 @@ namespace WhiteMvvmUnitTest.Services
         [TestCleanup]
         public override void CleanUpTest()
         {
-            BaseViewModelLocator.UpdateDependencies(false);
+            BaseViewModelLocator.UpdateDependenciesinternal(false);
         }
     }
 }

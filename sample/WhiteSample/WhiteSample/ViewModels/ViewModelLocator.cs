@@ -15,7 +15,7 @@ namespace WhiteSample.ViewModels
         }
         public void InitializeLocator()
         {
-            InitNavigation<HomeViewModel>();
+            InitializeNavigation<HomeViewModel>();
         }
     }
 }

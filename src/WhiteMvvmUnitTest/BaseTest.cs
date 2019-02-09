@@ -15,7 +15,7 @@ namespace WhiteMvvmUnitTest
         {
             Xamarin.Forms.Mocks.MockForms.Init();
             Application.Current = new MockApp();
-            BaseViewModelLocator.UpdateDependencies(true);
+            BaseViewModelLocator.UpdateDependenciesinternal(true);
         }
 
         public static IReadOnlyList<Page> ModalStack
@@ -35,7 +35,11 @@ namespace WhiteMvvmUnitTest
                 return navigationStack;
             }
         }
+        [AssemblyInitialize]
+        public static void StartUpTest(TestContext context)
+        {
 
+        }
         public abstract void CleanUpTest();
     }
 }

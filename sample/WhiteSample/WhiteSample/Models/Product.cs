@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Newtonsoft.Json;
-using WhiteMvvm.Bases;
+﻿using WhiteMvvm.Bases;
 
 namespace WhiteSample.Models
 {

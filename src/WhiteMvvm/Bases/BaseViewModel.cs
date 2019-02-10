@@ -10,16 +10,15 @@ namespace WhiteMvvm.Bases
     {
         protected readonly IDialogService DialogService;
         protected readonly INavigationService NavigationService;
-        bool _isInialize;
+        bool _isInitialize;
         private bool _isBusy;
 
-        public object NavigationData { get; set; }
+        public object NavigationData { get; private set; }
         public BaseViewModel()
         {
             DialogService = BaseViewModelLocator.Resolve<IDialogService>();
             NavigationService = BaseViewModelLocator.Resolve<INavigationService>();
         }
-
         public bool IsBusy
         {
             get => _isBusy;
@@ -40,29 +39,30 @@ namespace WhiteMvvm.Bases
         }
         protected internal virtual Task OnPopupAppearing()
         {
-            return Task.FromResult(false);
+            return Task.CompletedTask;
         }
         protected internal virtual Task OnPopupDisappearing()
         {
-            return Task.FromResult(false);
+            return Task.CompletedTask;
         }
         protected internal virtual Task OnAppearing()
         {
-            return Task.FromResult(false);
+            return Task.CompletedTask;
         }
         protected internal virtual Task OnDisappearing()
         {
-            return Task.FromResult(false);
+            return Task.CompletedTask;
         }
         protected internal virtual Task InitializeAsync(object navigationData)
         {
-            return Task.FromResult(false);
+            NavigationData = navigationData;
+            return Task.CompletedTask;
         }
         internal Task InternalInitializeAsync(object navigationData)
         {
-            if (_isInialize)
+            if (_isInitialize)
                 return Task.CompletedTask;
-            _isInialize = true;
+            _isInitialize = true;
             return InitializeAsync(navigationData);
         }
         protected internal virtual bool HandleBackButton()

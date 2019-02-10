@@ -15,6 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\WhiteMvvm\WhiteMvvm.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>%(Filename)</DependentUpon>
     </Compile>

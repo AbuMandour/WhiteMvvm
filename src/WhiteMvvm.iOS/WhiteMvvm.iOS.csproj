@@ -36,10 +36,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Acr.UserDialogs, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Acr.UserDialogs.7.0.1\lib\xamarinios10\Acr.UserDialogs.dll</HintPath>
+      <HintPath>..\..\packages\Acr.UserDialogs.7.0.1\lib\xamarinios10\Acr.UserDialogs.dll</HintPath>
     </Reference>
     <Reference Include="BTProgressHUD, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
+      <HintPath>..\..\packages\BTProgressHUD.1.2.0.6\lib\Xamarin.iOS10\BTProgressHUD.dll</HintPath>
     </Reference>
     <Reference Include="OpenTK-1.0" />
     <Reference Include="Rg.Plugins.Popup, Version=1.1.5.188, Culture=neutral, processorArchitecture=MSIL">
@@ -56,16 +56,16 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Core.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\<Xamarin class="iOS9"></Xamarin>\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Platform.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\<Xamarin class="iOS9"></Xamarin>\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Platform.iOS, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Platform.iOS.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS9\Xamarin.Forms.Platform.iOS.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.121934\lib\Xamarin.iOS9\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>

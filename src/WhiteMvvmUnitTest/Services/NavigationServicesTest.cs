@@ -90,8 +90,7 @@ namespace WhiteMvvmUnitTest.Services
             var homeViewModel = (HomeViewModel)homePage?.BindingContext;
             //Assert
             Assert.IsTrue((string)homeViewModel?.NavigationData == "Hello Test");
-            Assert.IsNotNull(homePage);
-            
+            Assert.IsNotNull(homePage);            
         }
         [TestMethod]
         public void NavigateToModal_WithOutParameter()

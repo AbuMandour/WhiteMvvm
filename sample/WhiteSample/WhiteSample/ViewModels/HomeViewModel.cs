@@ -33,7 +33,6 @@ namespace WhiteSample.ViewModels
         }
         protected override async Task InitializeAsync(object navigationData)
         {
-            NavigationData = navigationData;
             Products = await LoadData();
         }
         private async Task OnSelectProductTask(object obj)

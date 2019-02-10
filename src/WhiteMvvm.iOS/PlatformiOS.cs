@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-
-namespace WhiteMvvm.iOS
+﻿namespace WhiteMvvm.iOS
 {
     public class PlatformiOS
     {

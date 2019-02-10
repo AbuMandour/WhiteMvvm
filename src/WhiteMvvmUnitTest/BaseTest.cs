@@ -10,14 +10,7 @@ namespace WhiteMvvmUnitTest
 {
     [TestClass]
     public abstract class BaseTest
-    {
-        static BaseTest()
-        {
-            Xamarin.Forms.Mocks.MockForms.Init();
-            Application.Current = new MockApp();
-            BaseViewModelLocator.UpdateDependencies(true);
-        }
-
+    {      
         public static IReadOnlyList<Page> ModalStack
         {
             get
@@ -26,7 +19,6 @@ namespace WhiteMvvmUnitTest
                 return modalStack;
             }
         }
-
         public static IReadOnlyList<Page> NavigationStack
         {
             get
@@ -35,7 +27,17 @@ namespace WhiteMvvmUnitTest
                 return navigationStack;
             }
         }
-
-        public abstract void CleanUpTest();
+        [AssemblyInitialize]
+        public static void StartUpTest(TestContext context)
+        {
+            Xamarin.Forms.Mocks.MockForms.Init();
+            Application.Current = new MockApp();
+            BaseViewModelLocator.UpdateDependenciesinternal(true);
+        }
+        [AssemblyCleanup]
+        public static void CleanUpTest()
+        {
+            BaseViewModelLocator.UpdateDependenciesinternal(false);
+        }
     }
 }

@@ -35,10 +35,5 @@ namespace WhiteMvvmUnitTest.Services
             //Assert
             Assert.IsTrue(result.IsCompleted);
         }
-        [TestCleanup]
-        public override void CleanUpTest()
-        {
-            BaseViewModelLocator.UpdateDependencies(false);
-        }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Unity;
 using Unity.Lifetime;
 using WhiteMvvm.Services.Navigation;
@@ -13,7 +15,7 @@ using System.Threading.Tasks;
 namespace WhiteMvvm.Bases
 {
     public class BaseViewModelLocator
-    {
+    {    
         private static UnityContainer _container;
         static BaseViewModelLocator()
         {
@@ -26,7 +28,7 @@ namespace WhiteMvvm.Bases
         }
         public static readonly BindableProperty AutoWireViewModelProperty =
                 BindableProperty.CreateAttached("AutoWireViewModel", typeof(bool), typeof(BaseViewModelLocator), default(bool), propertyChanged: OnAutoWireViewModelChanged);
-        public static void UpdateDependencies(bool useMockServices)
+        public static void UpdateDependenciesinternal(bool useMockServices)
         {
             // Change injected dependencies
             if (useMockServices)
@@ -40,10 +42,20 @@ namespace WhiteMvvm.Bases
                 _container.RegisterType<IDialogService, DialogService>(new ContainerControlledLifetimeManager());
             }
         }
-        public static Task InitNavigation<TViewModel>() where TViewModel : BaseViewModel
+        public static Task InitializeNavigation<TViewModel>(object parameter = null) where TViewModel : BaseViewModel
         {
             var navigationService = Resolve<INavigationService>();
-            return navigationService.InitializeAsync<TViewModel>();
+            return navigationService.InitializeAsync<TViewModel>(parameter);
+        }
+        public static Task InitializeNavigation(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null) 
+        {
+            var navigationService = Resolve<INavigationService>();
+            return navigationService.InitializeAsync(pageContainers,tabbedPage);
+        }
+        public static Task InitializeNavigation(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)
+        {
+            var navigationService = Resolve<INavigationService>();
+            return navigationService.InitializeAsync( master,detail,masterDetailPage,hasNavBar);
         }
         private static void OnAutoWireViewModelChanged(BindableObject bindable, object oldValue, object newValue)
         {
@@ -95,6 +107,10 @@ namespace WhiteMvvm.Bases
         public static void SetAutoWireViewModel(BindableObject bindable, bool value)
         {
             bindable.SetValue(AutoWireViewModelProperty, value);
+        }
+        public virtual void UpdateDependancies(bool useMockServices)
+        {
+            UpdateDependenciesinternal(useMockServices);
         }
     }
 }

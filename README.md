@@ -1,7 +1,7 @@
 # WhiteMvvm
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
-## Get Start
+## Get Started
 you can download the nuget from here
 then you should call this method in each platform
 
@@ -75,7 +75,7 @@ and this for XAML
 ### CustomControls
 every Xamarin Forms application need a custom control and renderers to for custom UI in Custom Control assembly will have all responsible to hold custom controls, for now, we only have a _Grid View_ 
 
-#### Grid View
+#### GridView
 
 grid view is a control simply make grid layout bindable object with the data source and item template
 ##### Properties
@@ -137,7 +137,7 @@ Dialog service is an assembly has the responsibility of any regular popup also l
 navigation in white MVVM we go with the of most of the MVVM framework and Xamarin recommendation way which depend on navigating view model instead of pages to reach a totally separated code
 the aim to make view only responsible for design and make navigation system in view model but here naming convention is very imported as all pages should end with "view" and all view models should end with ViewModel and use master details page and tabbed page we must use page container class which has options and navigate from view model
 
-#### Device Utilities
+#### DeviceUtilities
 the assembly which contain all Xamarin Essential services with interface approach and mocks for unit test
 
 ### Utilities
@@ -148,7 +148,7 @@ Notified Object is an base object that implement INotifyPropertyChanged
 #### ObservableRangeCollection
 as ObersavleCollection is recommended to use in the list of an object then list but it does not have add range method we add this method to our solution in this class
 
-#### Task Command
+#### TaskCommand
 in Async programming try to avoid void with async methods and all of the command is void action so here we implement a command that executes the task, not a void method
 
 #### TransitionalList
@@ -157,7 +157,7 @@ this a list that help Transition layer to do ToModel method in the list
 ### Validations
 Any app that accepts input from users should ensure that the input is valid. An app could, for example, check for input that contains only characters in a particular range, is of a certain length, or matches a particular format. Without validation, a user can supply data that causes the app to fail. Validation enforces business rules and prevents an attacker from injecting malicious data.
 
-In the context of the Model-View-ViewModel (MVVM) pattern, a view model or model will often be required to perform data validation and signal any validation errors to the view so that the user can correct them. The eShopOnContainers mobile app performs synchronous client-side validation of view model properties and notifies the user of any validation errors by highlighting the control that contains the invalid data, and by displaying error messages that inform the user of why the data is invalid.
+In the context of the Model-View-ViewModel (MVVM) pattern, a view model or model will often be required to perform data validation and signal any validation errors to the view so that the user can correct them. any mobile app performs synchronous client-side validation of view model properties and notifies the user of any validation errors by highlighting the control that contains the invalid data, and by displaying error messages that inform the user of why the data is invalid.
 
 #### Specifying Validation Rules
 Validation rules are specified by creating a class that derives from the IValidationRule<T> interface, This interface specifies that a validation rule class must provide a boolean Check method that is used to perform the required validation and a ValidationMessage property whose value is the validation error message that will be displayed if validation fails.

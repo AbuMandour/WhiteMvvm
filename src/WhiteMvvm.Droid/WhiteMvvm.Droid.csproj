@@ -66,22 +66,22 @@
       <Version>1.1.5.188</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Annotations">
-      <Version>26.1.0.1</Version>
+      <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Compat">
-      <Version>26.1.0.1</Version>
+      <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Core.UI">
-      <Version>26.1.0.1</Version>
+      <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Core.Utils">
-      <Version>26.1.0.1</Version>
+      <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Fragment">
-      <Version>26.1.0.1</Version>
+      <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.Media.Compat">
-      <Version>26.1.0.1</Version>
+      <Version>27.0.2.1</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat">
       <Version>27.0.2.1</Version>

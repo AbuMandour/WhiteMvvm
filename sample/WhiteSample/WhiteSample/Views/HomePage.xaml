@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<bases:BaseContentPage
+    xmlns:bases="clr-namespace:WhiteMvvm.Bases;assembly=WhiteMvvm"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:customcontrol="clr-namespace:WhiteMvvm.CustomControls;assembly=WhiteMvvm"
+    bases:BaseViewModelLocator.AutoWireViewModel="True"
+    x:Class="WhiteSample.Views.HomePage"
+    Title="Home Page">
+    <bases:BaseContentPage.Content>
+        <Grid VerticalOptions="FillAndExpand"
+              BackgroundColor="WhiteSmoke">
+
+            <customcontrol:GridView AutomationId="productGridView"
+                                ItemMargin="5"
+                                BackgroundColor="Aqua"
+                                HorizontalOptions="FillAndExpand"
+                                VerticalOptions="FillAndExpand"
+                                SelectedCommand="{Binding SelectProductCommand}"
+                                ItemsSource="{Binding Products}">
+                <customcontrol:GridView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame WidthRequest="80"
+                               HeightRequest="80"
+                               IsClippedToBounds="True"
+                               CornerRadius="5"
+                               BackgroundColor="LightSeaGreen">
+                            <StackLayout 
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                                <Label  HorizontalOptions="Center"
+                                        FontSize="18"
+                                        Text="{Binding Name}"/>
+                                <Label HorizontalOptions="Center"
+                                       FontSize="14"
+                                       Text="{Binding Price}"/>
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </customcontrol:GridView.ItemTemplate>
+            </customcontrol:GridView>
+        </Grid>
+    </bases:BaseContentPage.Content>
+</bases:BaseContentPage>

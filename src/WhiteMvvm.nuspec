@@ -10,11 +10,11 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>a Xamarin forms framework base on mvvm</description>
     <dependencies>
-      <dependency id="Acr.UserDialogs" Version="7.0.1" />
-      <dependency id="Rg.Plugins.Popup" Version="1.1.5.188" />
-      <dependency id="Unity" Version="5.9.3" />
-      <dependency id="Xamarin.Essentials" Version="1.0.1" />
-      <dependency id="Xamarin.Forms" Version="3.4.0.1008975" />
+      <dependency id="Acr.UserDialogs" version="7.0.1" />
+      <dependency id="Rg.Plugins.Popup" version="1.1.5.188" />
+      <dependency id="Unity" version="5.9.3" />
+      <dependency id="Xamarin.Essentials" version="1.0.1" />
+      <dependency id="Xamarin.Forms" version="3.4.0.1008975" />
     </dependencies>    
   </metadata>
     <files>

@@ -18,8 +18,6 @@
     </dependencies>    
   </metadata>
     <files>
-        <file src="..\src\WhiteMvvm\bin\Release\monoandroid81\81\WhiteMvvm.*" target="lib\netstandard1.0" />
-        <file src="..\src\WhiteMvvm\bin\Release\netstandard2.0\WhiteMvvm.*" target="lib\MonoAndroid81" />
-        <file src="..\src\WhiteMvvm\bin\Release\xamarin.ios10\WhiteMvvm.*.*" target="lib\Xamarin.iOS10" />
+      <file src="..\src\WhiteMvvm\bin\Release\netstandard2.0\WhiteMvvm.*" target="lib\netstandard1.0" />
     </files>
 </package>

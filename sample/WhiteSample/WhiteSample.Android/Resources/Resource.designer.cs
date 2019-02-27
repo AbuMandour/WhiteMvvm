@@ -1187,6 +1187,7 @@ namespace WhiteSample.Droid
 			global::WhiteMvvm.Droid.Resource.Id.submenuarrow = global::WhiteSample.Droid.Resource.Id.submenuarrow;
 			global::WhiteMvvm.Droid.Resource.Id.submit_area = global::WhiteSample.Droid.Resource.Id.submit_area;
 			global::WhiteMvvm.Droid.Resource.Id.tabMode = global::WhiteSample.Droid.Resource.Id.tabMode;
+			global::WhiteMvvm.Droid.Resource.Id.tag_transition_group = global::WhiteSample.Droid.Resource.Id.tag_transition_group;
 			global::WhiteMvvm.Droid.Resource.Id.text = global::WhiteSample.Droid.Resource.Id.text;
 			global::WhiteMvvm.Droid.Resource.Id.text2 = global::WhiteSample.Droid.Resource.Id.text2;
 			global::WhiteMvvm.Droid.Resource.Id.textSpacerNoButtons = global::WhiteSample.Droid.Resource.Id.textSpacerNoButtons;
@@ -2070,6 +2071,9 @@ namespace WhiteSample.Droid
 			global::WhiteMvvm.Droid.Resource.Styleable.FontFamily_fontProviderPackage = global::WhiteSample.Droid.Resource.Styleable.FontFamily_fontProviderPackage;
 			global::WhiteMvvm.Droid.Resource.Styleable.FontFamily_fontProviderQuery = global::WhiteSample.Droid.Resource.Styleable.FontFamily_fontProviderQuery;
 			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont;
+			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont_android_font = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont_android_font;
+			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont_android_fontStyle;
+			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont_android_fontWeight;
 			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont_font = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont_font;
 			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont_fontStyle = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont_fontStyle;
 			global::WhiteMvvm.Droid.Resource.Styleable.FontFamilyFont_fontWeight = global::WhiteSample.Droid.Resource.Styleable.FontFamilyFont_fontWeight;

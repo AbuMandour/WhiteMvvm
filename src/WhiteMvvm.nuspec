@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
   <metadata>
     <id>WhiteMvvm</id>
-    <version>$version$</version>
+    <version>1.0.6</version>
     <title>WhiteMvvm</title>
     <authors>Muhammad Abu Mandour</authors>
     <projectUrl>https://github.com/AbuMandour/WhiteMvvm</projectUrl>

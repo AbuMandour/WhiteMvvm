@@ -4,7 +4,8 @@
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
 ## Get Started
-you can download the nuget from here
+you can download the nuget from here https://www.nuget.org/packages/WhiteMvvm/
+
 then you should call this method in each platform
 
 ***Android***: WhiteMvvm.Droid.PlatformDorid.Init(this,savedInstanceState);

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>WhiteMvvm</id>
+    <version>$version$</version>
+    <title>WhiteMvvm</title>
+    <authors>Muhammad Abu Mandour</authors>
+    <projectUrl>https://github.com/AbuMandour/WhiteMvvm</projectUrl>
+    <owners>Muhammad Abu Mandour</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>a Xamarin forms framework base on mvvm</description>
+    <dependencies>
+      <dependency id="Acr.UserDialogs" Version="7.0.1" />
+      <dependency id="Rg.Plugins.Popup" Version="1.1.5.188" />
+      <dependency id="Unity" Version="5.9.3" />
+      <dependency id="Xamarin.Essentials" Version="1.0.1" />
+      <dependency id="Xamarin.Forms" Version="3.4.0.1008975" />
+    </dependencies>    
+  </metadata>
+    <files>
+        <file src="..\src\WhiteMvvm\bin\Release\monoandroid81\81\WhiteMvvm.*" target="lib\netstandard1.0" />
+        <file src="..\src\WhiteMvvm\bin\Release\netstandard2.0\WhiteMvvm.*" target="lib\MonoAndroid81" />
+        <file src="..\src\WhiteMvvm\bin\Release\xamarin.ios10\WhiteMvvm.*.*" target="lib\Xamarin.iOS10" />
+    </files>
+</package>

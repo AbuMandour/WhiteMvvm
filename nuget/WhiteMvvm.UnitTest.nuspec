@@ -6,6 +6,7 @@
     <title>WhiteMvvm.UnitTest</title>
     <authors>Muhammad Abu Mandour</authors>
     <projectUrl>https://github.com/AbuMandour/WhiteMvvm</projectUrl>
+    <licenseUrl>https://github.com/AbuMandour/WhiteMvvm/blob/master/LICENSE</licenseUrl>
     <owners>Muhammad Abu Mandour</owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <description>a Xamarin forms framework base on mvvm, this package for UnitTest project</description>

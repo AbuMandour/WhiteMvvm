@@ -1,29 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using WhiteMvvm;
 using WhiteMvvm.Bases;
-using WhiteMvvmUnitTest.Mocks;
+using WhiteMvvm.UnitTest.Mocks;
 using Xamarin.Forms;
 
-namespace WhiteMvvmUnitTest
+namespace WhiteMvvm.UnitTest
 {
     [TestClass]
-    public abstract class BaseTest
-    {      
-        public static IReadOnlyList<Page> ModalStack
+    public class BaseTest
+    {
+        public static IReadOnlyList<Page> MockModalStack
         {
             get
             {
-                var modalStack = Application.Current.MainPage.Navigation.ModalStack ?? new List<Page>();
+                var modalStack = MockApp.Current.MainPage.Navigation.ModalStack ?? new List<Page>();
                 return modalStack;
             }
         }
-        public static IReadOnlyList<Page> NavigationStack
+        public static IReadOnlyList<Page> MockNavigationStack
         {
             get
             {
-                var navigationStack = Application.Current.MainPage.Navigation.NavigationStack ?? new List<Page>();
+                var navigationStack = MockApp.Current.MainPage.Navigation.NavigationStack ?? new List<Page>();
                 return navigationStack;
             }
         }
@@ -40,4 +38,5 @@ namespace WhiteMvvmUnitTest
             BaseViewModelLocator.UpdateDependenciesinternal(false);
         }
     }
+
 }

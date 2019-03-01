@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+  <metadata>
+    <id>WhiteMvvm.UnitTest</id>
+    <version>1.0.0</version>
+    <title>WhiteMvvm.UnitTest</title>
+    <authors>Muhammad Abu Mandour</authors>
+    <projectUrl>https://github.com/AbuMandour/WhiteMvvm</projectUrl>
+    <owners>Muhammad Abu Mandour</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>a Xamarin forms framework base on mvvm, this package for UnitTest project</description>
+    <dependencies>    
+      <dependency id="Moq" version="4.10.1" />
+      <dependency id="MSTest.TestAdapter" version="1.3.2" />
+      <dependency id="MSTest.TestFramework" version="1.3.2" />
+      <dependency id="WhiteMvvm" version="1.0.7" />
+      <dependency id="Xamarin.Forms" version="3.5.0.169047" />
+      <dependency id="Xamarin.Forms.Mocks" version="3.5.0" />
+    </dependencies>    
+  </metadata>
+    <files>
+      <file src="..\src\WhiteMvvm.UnitTest\bin\Debug\netstandard2.0\WhiteMvvm.*" target="lib\netstandard1.0" />
+    </files>
+</package>

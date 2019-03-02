@@ -3,6 +3,10 @@ White Solution Portable [![Build status](https://abumandour.visualstudio.com/Whi
 
 White Solution Android [![Build status](https://abumandour.visualstudio.com/WhiteMvvm/_apis/build/status/WhiteMvvmDroid-CI)](https://abumandour.visualstudio.com/WhiteMvvm/_build/latest?definitionId=12)
 
+WhiteSolution iOS [![Build status](https://abumandour.visualstudio.com/WhiteMvvm/_apis/build/status/WhiteMvvmiOS-CI)](https://abumandour.visualstudio.com/WhiteMvvm/_build/latest?definitionId=13)
+
+White Solution UnitTest [![Build status](https://abumandour.visualstudio.com/WhiteMvvm/_apis/build/status/WhiteMvvmUnitTest-CI)](https://abumandour.visualstudio.com/WhiteMvvm/_build/latest?definitionId=14)
+
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
 ## Get Started

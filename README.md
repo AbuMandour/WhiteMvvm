@@ -10,7 +10,14 @@ White Solution UnitTest [![Build status](https://abumandour.visualstudio.com/Whi
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
 ## Get Started
-you can download the nuget from here https://www.nuget.org/packages/WhiteMvvm/
+you can download the nuget for portable project from here https://www.nuget.org/packages/WhiteMvvm/
+
+and download the nuget for Android project from here https://www.nuget.org/packages/WhiteMvvm.Droid/
+
+and download the nuget for iOS project from here https://www.nuget.org/packages/WhiteMvvm.iOS/
+
+and download the nuget for UnitTest project (***if you have one***) from here https://www.nuget.org/packages/WhiteMvvm.UnitTest/
+
 
 then you should call this method in each platform
 

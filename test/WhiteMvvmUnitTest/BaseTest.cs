@@ -32,12 +32,12 @@ namespace WhiteMvvmUnitTest
         {
             Xamarin.Forms.Mocks.MockForms.Init();
             Application.Current = new MockApp();
-            BaseViewModelLocator.UpdateDependenciesinternal(true);
+            BaseViewModelLocator.UpdateDependenciesInternal(true);
         }
         [AssemblyCleanup]
         public static void CleanUpTest()
         {
-            BaseViewModelLocator.UpdateDependenciesinternal(false);
+            BaseViewModelLocator.UpdateDependenciesInternal(false);
         }
     }
 }

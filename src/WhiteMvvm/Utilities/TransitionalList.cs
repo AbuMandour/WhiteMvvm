@@ -12,9 +12,9 @@ namespace WhiteMvvm.Utilities
         public virtual ObservableRangeCollection<TBaseModel> ToModel<TBaseModel>() where TBaseModel : BaseModel , new()
         {
             var newList = new ObservableRangeCollection<TBaseModel>();
-            foreach (var Transition in this)
+            foreach (var transition in this)
             {                
-                var baseModel = Transition.ToModel<TBaseModel>();
+                var baseModel = transition.ToModel<TBaseModel>();
                 newList.Add(baseModel);
             }
             return newList;

@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Acr.UserDialogs;
+using WhiteMvvm.Configuration;
 using WhiteMvvm.Services.Dialog;
 using WhiteMvvm.Services.Navigation;
 using WhiteMvvm.Utilities;
@@ -12,7 +13,6 @@ namespace WhiteMvvm.Bases
         protected readonly INavigationService NavigationService;
         bool _isInitialize;
         private bool _isBusy;
-
         public object NavigationData { get; private set; }
         public BaseViewModel()
         {
@@ -24,14 +24,17 @@ namespace WhiteMvvm.Bases
             get => _isBusy;
             set
             {
-                if (value)
+                if (ViewModelConfig.Current.UseBaseIndicator)
                 {
-                    
-                    DialogService.ShowLoading(MaskType.Gradient);                    
-                }
-                else
-                {
-                       DialogService.HideLoading();
+                    if (value)
+                    {
+
+                        DialogService.ShowLoading(ViewModelConfig.Current.IndicatorMaskType);
+                    }
+                    else
+                    {
+                        DialogService.HideLoading();
+                    } 
                 }
                 _isBusy = value;
                 OnPropertyChanged();

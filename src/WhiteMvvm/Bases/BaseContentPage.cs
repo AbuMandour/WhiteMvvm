@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Xamarin.Forms;
+﻿using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 
@@ -14,7 +11,8 @@ namespace WhiteMvvm.Bases
         {
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
         }
-        public BaseViewModel ViewModel { get => this.BindingContext as BaseViewModel; }
+        public BaseViewModel ViewModel => BindingContext as BaseViewModel;
+
         protected override void OnAppearing()
         {
             base.OnAppearing();

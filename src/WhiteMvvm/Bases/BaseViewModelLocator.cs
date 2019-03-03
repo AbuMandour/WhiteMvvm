@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using Unity;
 using Unity.Lifetime;
@@ -28,7 +27,7 @@ namespace WhiteMvvm.Bases
         }
         public static readonly BindableProperty AutoWireViewModelProperty =
                 BindableProperty.CreateAttached("AutoWireViewModel", typeof(bool), typeof(BaseViewModelLocator), default(bool), propertyChanged: OnAutoWireViewModelChanged);
-        public static void UpdateDependenciesinternal(bool useMockServices)
+        public static void UpdateDependenciesInternal(bool useMockServices)
         {
             // Change injected dependencies
             if (useMockServices)
@@ -110,7 +109,7 @@ namespace WhiteMvvm.Bases
         }
         public virtual void UpdateDependancies(bool useMockServices)
         {
-            UpdateDependenciesinternal(useMockServices);
+            UpdateDependenciesInternal(useMockServices);
         }
     }
 }

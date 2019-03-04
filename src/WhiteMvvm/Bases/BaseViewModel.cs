@@ -1,5 +1,4 @@
 ﻿using System.Threading.Tasks;
-using Acr.UserDialogs;
 using WhiteMvvm.Configuration;
 using WhiteMvvm.Services.Dialog;
 using WhiteMvvm.Services.Navigation;

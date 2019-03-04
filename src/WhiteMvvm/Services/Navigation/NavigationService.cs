@@ -30,47 +30,6 @@ namespace WhiteMvvm.Services.Navigation
             }
         }
         /// <summary>
-        /// method to Initialize Navigation service in app class where we can write how we will begin app navigation 
-        /// </summary>
-        /// <typeparam name="TViewModel"></typeparam>
-        /// <param name="parameter"></param>
-        /// <param name="isNavigationPage"></param>
-        /// <returns></returns>
-        public Task InitializeAsync<TViewModel>(object parameter = null, bool isNavigationPage = true) where TViewModel : BaseViewModel
-        {
-            if (!isNavigationPage)
-            {
-                return InternalNavigateToAsync(typeof(TViewModel), parameter);
-            }
-            else
-            {
-                return InternalNavigateModalToAsync(typeof(TViewModel), parameter,true);
-            }
-        }
-        /// <summary>
-        /// method to Initialize Navigation service in app class where we can write how we will begin app navigation 
-        /// </summary>
-        /// <param name="pageContainers"></param>
-        /// <param name="tabbedPage"></param>
-        /// <param name="hasNavBar"></param>
-        /// <returns></returns>
-        public Task InitializeAsync(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null, bool hasNavBar = true)
-        {
-            return InternalNavigateToTabbedAsync(pageContainers, true, tabbedPage, hasNavBar);
-        }
-        /// <summary>
-        /// method to Initialize Navigation service in app class where we can write how we will begin app navigation 
-        /// </summary>
-        /// <param name="master"></param>
-        /// <param name="detail"></param>
-        /// <param name="masterDetailPage"></param>
-        /// <param name="hasNavBar"></param>
-        /// <returns></returns>
-        public Task InitializeAsync(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)
-        {
-            return InternalNavigateToMasterDetailsAsync(master, detail,true, masterDetailPage, hasNavBar);
-        }
-        /// <summary>
         /// generic async method to push page in navigation stack or start app with navigation stack take one optional parameter which will send to view model type you inserted
         /// </summary>
         /// <typeparam name="TViewModel"></typeparam>

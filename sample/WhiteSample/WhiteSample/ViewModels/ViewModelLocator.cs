@@ -13,9 +13,5 @@ namespace WhiteSample.ViewModels
             Register<HomeViewModel>();
             Register<IHomeService,HomeService>();
         }
-        public void InitializeLocator()
-        {
-            InitializeApp<HomeViewModel>();
-        }
     }
 }

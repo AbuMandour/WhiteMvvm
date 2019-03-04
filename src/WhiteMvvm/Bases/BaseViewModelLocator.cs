@@ -47,9 +47,5 @@ namespace WhiteMvvm.Bases
         {
             Container.RegisterType<T>(new ContainerControlledLifetimeManager());
         }
-        public virtual void UpdateDependancies(bool useMockServices)
-        {
-            UpdateDependenciesInternal(useMockServices);
-        }
     }
 }

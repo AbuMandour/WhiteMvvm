@@ -60,7 +60,7 @@ namespace WhiteMvvm.Services.Navigation
         /// <returns></returns>
         public Task NavigateToTabbedAsync(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null, bool hasNavBar = false)
         {
-            return InternalNavigateToTabbedAsync(pageContainers, false, tabbedPage,hasNavBar);
+            return InternalNavigateToTabbedAsync(pageContainers, tabbedPage, hasNavBar);
         }
         /// <summary>
         /// async method to navigate to master detail page with master and detail page as parameter also if you want to keep navigation bar or not as optional parameter also if you want to use custom master detail page
@@ -73,7 +73,7 @@ namespace WhiteMvvm.Services.Navigation
         public Task NavigateToMasterDetailsAsync(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null,
             bool hasNavBar = false)
         {
-           return InternalNavigateToMasterDetailsAsync(master, detail, false, masterDetailPage, hasNavBar);
+            return InternalNavigateToMasterDetailsAsync(master, detail, masterDetailPage, hasNavBar);
         }
         /// <summary>
         /// method to change details page with another on take one parameter page container
@@ -188,7 +188,7 @@ namespace WhiteMvvm.Services.Navigation
 
             }
         }
-        private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter,bool isNavigationPage)
+        private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter, bool isNavigationPage)
         {
             var page = CreatePage(viewModelType);
 
@@ -210,7 +210,7 @@ namespace WhiteMvvm.Services.Navigation
 
             }
         }
-        private async Task InternalNavigateToMasterDetailsAsync(PageContainer master, PageContainer detail, bool isRoot, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)
+        private async Task InternalNavigateToMasterDetailsAsync(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)
         {
             if (master == null || detail == null)
                 throw new ArgumentNullException();
@@ -229,19 +229,16 @@ namespace WhiteMvvm.Services.Navigation
             masterDetailPage.Master = masterPage;
             masterDetailPage.Detail = detail.IsNavigationPage ? new NavigationPage(detailPage) : detailPage;
 
-            if (!isRoot)
+            var navigation = Application.Current.MainPage;
+            if (navigation != null)
             {
-                var navigation = Application.Current.MainPage;
-                if (navigation != null)
+                if (hasNavBar)
                 {
-                    if (hasNavBar)
-                    {
-                        await navigation.Navigation.PushModalAsync(new NavigationPage(masterDetailPage));
-                    }
-                    else
-                    {
-                        await navigation.Navigation.PushModalAsync(masterDetailPage);
-                    }
+                    await navigation.Navigation.PushModalAsync(new NavigationPage(masterDetailPage));
+                }
+                else
+                {
+                    await navigation.Navigation.PushModalAsync(masterDetailPage);
                 }
             }
             else
@@ -259,14 +256,14 @@ namespace WhiteMvvm.Services.Navigation
             await pageContainer.ViewModel.InitializeAsync(pageContainer.Parameter);
             masterDetail.IsPresented = false;
         }
-        private async Task InternalAddPageToTabbedPage(PageContainer pageContainer,TabbedPage tabbedPage)
+        private async Task InternalAddPageToTabbedPage(PageContainer pageContainer, TabbedPage tabbedPage)
         {
             var viewModelType = pageContainer.ViewModel;
             var page = CreatePage(viewModelType.GetType());
             tabbedPage.Children.Add(pageContainer.IsNavigationPage ? new NavigationPage(page) : page);
             await pageContainer.ViewModel.InternalInitializeAsync(pageContainer.Parameter);
         }
-        private async Task InternalNavigateToTabbedAsync(IList<PageContainer> pageContainers, bool isRoot, TabbedPage tabbedPage = null, bool hasNavBar = true)
+        private async Task InternalNavigateToTabbedAsync(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null, bool hasNavBar = true)
         {
             if (pageContainers.Count > 1)
             {
@@ -296,14 +293,12 @@ namespace WhiteMvvm.Services.Navigation
                     var page = CreatePage(viewModelType.GetType());
                     tabbedPage.Children.Add(pageContainer.IsNavigationPage ? new NavigationPage(page) : page);
                 }
-                if (!isRoot)
+                var navigation = Application.Current.MainPage;
+                if (navigation != null)
                 {
-                    var navigation = Application.Current.MainPage;
-                    if (navigation != null )
-                    {
-                        await navigation.Navigation.PushModalAsync(hasNavBar? (Page) new NavigationPage(tabbedPage) : tabbedPage);
-                    }
+                    await navigation.Navigation.PushModalAsync(hasNavBar ? (Page)new NavigationPage(tabbedPage) : tabbedPage);
                 }
+
                 else
                 {
                     Application.Current.MainPage = tabbedPage;

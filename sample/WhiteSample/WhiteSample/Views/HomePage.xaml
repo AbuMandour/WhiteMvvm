@@ -4,7 +4,7 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:customcontrol="clr-namespace:WhiteMvvm.CustomControls;assembly=WhiteMvvm"
-    bases:BaseViewModelLocator.AutoWireViewModel="True"
+    AutoWireViewModel="True"
     x:Class="WhiteSample.Views.HomePage"
     Title="Home Page">
     <bases:BaseContentPage.Content>

@@ -96,6 +96,10 @@
       <Project>{f2eabcc5-9cc2-4f39-8b22-a13c6a2a3e2c}</Project>
       <Name>WhiteMvvm.Droid</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\src\WhiteMvvm\WhiteMvvm.csproj">
+      <Project>{1C18B352-3D51-469F-A0FF-A2D365C3E419}</Project>
+      <Name>WhiteMvvm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WhiteSample\WhiteSample.csproj">
       <Project>{6DE781DF-ABFB-41E0-B35E-8B84EA7F2B67}</Project>
       <Name>WhiteSample</Name>

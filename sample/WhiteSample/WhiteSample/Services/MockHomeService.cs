@@ -9,7 +9,7 @@ namespace WhiteSample.Services
 {
     public class MockHomeService : IHomeService
     {
-        public async Task<TransitionalList<ApiProduct>> GetProductsAsync()
+        public async Task<TransitionalList<ApiProduct>> GetProducts()
         {
             try
             {
@@ -33,6 +33,7 @@ namespace WhiteSample.Services
                 Console.Write(ex);
                 return new TransitionalList<ApiProduct>();
             }
+
         }
     }
 }

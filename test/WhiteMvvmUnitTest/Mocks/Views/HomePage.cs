@@ -6,7 +6,7 @@ namespace WhiteMvvmUnitTest.Mocks.Views
     {
         public HomePage()
         {
-            BaseViewModelLocator.SetAutoWireViewModel(this,true);
+            SetAutoWireViewModel(this,true);
         }
     }
 }

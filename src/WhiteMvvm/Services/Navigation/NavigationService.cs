@@ -198,7 +198,7 @@ namespace WhiteMvvm.Services.Navigation
             }
             else
             {
-                Application.Current.MainPage = new NavigationPage(page);
+                Application.Current.MainPage = isNavigationPage ? page : new NavigationPage(page);
             }
 
             if (page != null)

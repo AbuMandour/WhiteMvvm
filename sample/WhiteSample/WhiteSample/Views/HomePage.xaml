@@ -4,9 +4,9 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:customcontrol="clr-namespace:WhiteMvvm.CustomControls;assembly=WhiteMvvm"
-    AutoWireViewModel="True"
     x:Class="WhiteSample.Views.HomePage"
-    Title="Home Page">
+    Title="Home Page"
+    AutoWireViewModel="True">
     <bases:BaseContentPage.Content>
         <Grid VerticalOptions="FillAndExpand"
               BackgroundColor="WhiteSmoke">
@@ -14,8 +14,8 @@
             <customcontrol:GridView AutomationId="productGridView"
                                 ItemMargin="5"
                                 BackgroundColor="Aqua"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill"
                                 SelectedCommand="{Binding SelectProductCommand}"
                                 ItemsSource="{Binding Products}">
                 <customcontrol:GridView.ItemTemplate>

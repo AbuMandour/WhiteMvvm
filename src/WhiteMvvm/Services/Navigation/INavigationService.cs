@@ -7,7 +7,7 @@ namespace WhiteMvvm.Services.Navigation
 {
     public interface INavigationService
     {
-        INavigation NavigationStack { get; }
+        INavigation Navigation { get; }
         BaseViewModel PreviousPageViewModel { get; }
         Task NavigateToAsync<TViewModel>(object parameter = null) where TViewModel : BaseViewModel;
         Task NavigateModalToAsync<TViewModel>(object parameter = null, bool isNavigationPage = false) where TViewModel : BaseViewModel;

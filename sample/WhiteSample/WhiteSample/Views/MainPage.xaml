@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<bases:BaseContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:WhiteSample"
+             xmlns:bases="clr-namespace:WhiteMvvm.Bases;assembly=WhiteMvvm"
+             x:Class="WhiteSample.Views.MainPage"
+             AutoWireViewModel="True">
+
+    <StackLayout>
+        <!-- Place new controls here -->
+        <Button Command="{Binding BackCommand}"
+           Text="Back to Home" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+    </StackLayout>
+
+</bases:BaseContentPage>

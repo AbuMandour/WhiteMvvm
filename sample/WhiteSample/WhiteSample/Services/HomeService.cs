@@ -1,19 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
-using WhiteMvvm.Services.DeviceUtilities;
 using WhiteMvvm.Utilities;
 using WhiteSample.Transitions;
 
 namespace WhiteSample.Services
 {
     public class HomeService : IHomeService
-    {
-        private readonly IConnectivity _connectivity;
-
-        public HomeService(IConnectivity connectivity)
-        {
-            _connectivity = connectivity;
-        }
+    {        
         public async Task<TransitionalList<ApiProduct>> GetProducts()
         {
             try

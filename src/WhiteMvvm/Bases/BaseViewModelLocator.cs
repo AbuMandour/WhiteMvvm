@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using Unity;
 using Unity.Lifetime;
 using WhiteMvvm.Services.Navigation;
 using WhiteMvvm.Services.DeviceUtilities;
-using Xamarin.Forms;
 using WhiteMvvm.Services.Dialog;
 using static WhiteMvvm.Services.DeviceUtilities.Mocks;
-using System.Threading.Tasks;
 
 namespace WhiteMvvm.Bases
 {
@@ -38,6 +35,10 @@ namespace WhiteMvvm.Bases
         public static T Resolve<T>() where T : class
         {
             return Container.Resolve<T>();
+        }
+        public static object Resolve(Type type)
+        {
+            return Container.Resolve(type);
         }
         public static void Register<TFrom, TTo>() where   TTo : TFrom
         {

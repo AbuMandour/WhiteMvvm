@@ -21,6 +21,7 @@ namespace WhiteSample.ViewModels
             set
             {
                 _products = value;
+                OnPropertyChanged();
             }
         }
 
@@ -40,7 +41,7 @@ namespace WhiteSample.ViewModels
             var product = (Product)obj;
             if (product != null)
             {
-                //await NavigationService.NavigateToAsync<View3ViewModel>();
+                await NavigationService.NavigateToAsync<MainViewModel>();
             }
         }
         public async Task<ObservableRangeCollection<Product>> LoadData()
@@ -50,9 +51,10 @@ namespace WhiteSample.ViewModels
                 if (_connectivity.NetworkAccess == Xamarin.Essentials.NetworkAccess.Internet)
                 {
                     IsBusy = true;
-                    var apiProducts = await _homeService.GetProducts();
+                    var apiProducts = await _homeService.GetProducts();                    
+                    var products = apiProducts.ToModel<Product>();
                     IsBusy = false;
-                    return apiProducts.ToModel<Product>();
+                    return products;
                 }
                 else
                 {

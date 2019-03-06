@@ -54,12 +54,13 @@ namespace WhiteMvvm.Bases
                 {
                     return;
                 }
-                var viewModel = BaseViewModelLocator.Container.Resolve(viewModelType);
+                var viewModel = BaseViewModelLocator.Resolve(viewModelType);
                 view.BindingContext = viewModel;
             }
             catch (Exception ex)
             {
                 Console.Write(ex);
+                throw new Exception("Couldn't wire view model to page");
             }
         }
         public static bool GetAutoWireViewModel(BindableObject bindable)

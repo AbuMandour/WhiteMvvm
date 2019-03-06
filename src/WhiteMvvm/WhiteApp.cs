@@ -17,9 +17,9 @@ namespace WhiteMvvm
         /// <param name="isNavigationPage"></param>
         /// <returns></returns>
 
-        public static Task InitializeApp<TViewModel>(object parameter = null, bool isNavigationPage = true) where TViewModel : BaseViewModel
+        public static Task InitializeApp<TViewModel>(object parameter = null, bool isNavigationPage = false) where TViewModel : BaseViewModel
         {
-            var navigationService = BaseViewModelLocator.Container.Resolve<INavigationService>();
+            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
             return navigationService.NavigateModalToAsync<TViewModel>(parameter, isNavigationPage);
         }
         /// <summary>
@@ -30,9 +30,9 @@ namespace WhiteMvvm
         /// <param name="hasNavBar"></param>
         /// <returns></returns>
 
-        public static Task InitializeApp(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null, bool hasNavBar = true)
+        public static Task InitializeApp(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null, bool hasNavBar = false)
         {
-            var navigationService = BaseViewModelLocator.Container.Resolve<INavigationService>();
+            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
             return navigationService.NavigateToTabbedAsync(pageContainers, tabbedPage, hasNavBar);
         }
         /// <summary>
@@ -46,7 +46,7 @@ namespace WhiteMvvm
 
         public static Task InitializeApp(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)
         {
-            var navigationService = BaseViewModelLocator.Container.Resolve<INavigationService>();
+            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
             return navigationService.NavigateToMasterDetailsAsync(master, detail, masterDetailPage, hasNavBar);
         }
     }

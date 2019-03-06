@@ -15,7 +15,7 @@ namespace WhiteMvvm.Services.Navigation
     /// </summary>
     public class NavigationService : INavigationService
     {
-        public INavigation NavigationStack => Application.Current.MainPage?.Navigation;
+        public INavigation Navigation => Application.Current.MainPage?.Navigation;
         /// <summary>
         /// 
         /// </summary>
@@ -170,14 +170,10 @@ namespace WhiteMvvm.Services.Navigation
 
             var page = CreatePage(viewModelType);
 
-            if (Application.Current.MainPage is NavigationPage navigationPage)
+            if (Navigation != null && Navigation.NavigationStack.Count > 0)
             {
-                await navigationPage.PushAsync(page);
-            }
-            else
-            {
-                Application.Current.MainPage = new NavigationPage(page);
-            }
+                await Navigation.PushAsync(page);
+            }            
 
             if (page != null)
             {
@@ -185,29 +181,25 @@ namespace WhiteMvvm.Services.Navigation
                 {
                     await viewModel.InternalInitializeAsync(parameter);
                 }
-
             }
         }
         private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter, bool isNavigationPage)
         {
             var page = CreatePage(viewModelType);
-
-            if (Application.Current.MainPage is NavigationPage navigationPage)
+            if (Navigation != null)
             {
-                await navigationPage.Navigation.PushModalAsync(isNavigationPage ? new NavigationPage(page) : page);
+                await Navigation.PushModalAsync(isNavigationPage ? new NavigationPage(page) : page);
             }
             else
             {
-                Application.Current.MainPage = isNavigationPage ? page : new NavigationPage(page);
+                Application.Current.MainPage = isNavigationPage ? new NavigationPage(page) : page;
             }
-
             if (page != null)
             {
                 if (page.BindingContext is BaseViewModel viewModel)
                 {
                     await viewModel.InternalInitializeAsync(parameter);
                 }
-
             }
         }
         private async Task InternalNavigateToMasterDetailsAsync(PageContainer master, PageContainer detail, MasterDetailPage masterDetailPage = null, bool hasNavBar = false)

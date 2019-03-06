@@ -13,7 +13,7 @@ namespace WhiteSample
         public App()
         {
             InitializeComponent();
-            new ViewModelLocator().Init();
+            ViewModelLocator.Init();
             InitializeApp<HomeViewModel>(isNavigationPage: true);
         }
 

@@ -9,7 +9,7 @@ namespace WhiteSample.ViewModels
 {
     public class ViewModelLocator : BaseViewModelLocator
     {
-        public override void Init()
+        public static void Init()
         {
             Register<HomeViewModel>();
             Register<IConnectivity, ConnectivityService>();

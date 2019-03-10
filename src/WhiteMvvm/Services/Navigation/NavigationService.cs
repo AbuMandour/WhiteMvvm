@@ -5,6 +5,8 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using WhiteMvvm.Bases;
+using WhiteMvvm.Configuration;
+using WhiteMvvm.Services.Resolve;
 using Xamarin.Forms;
 using TabbedPage = Xamarin.Forms.TabbedPage;
 
@@ -15,6 +17,12 @@ namespace WhiteMvvm.Services.Navigation
     /// </summary>
     public class NavigationService : INavigationService
     {
+        private readonly IReflectionResolve _resolve;
+
+        public NavigationService(IReflectionResolve resolve)
+        {
+            _resolve = resolve;
+        }
         public INavigation Navigation => Application.Current.MainPage?.Navigation;
         /// <summary>
         /// 
@@ -40,6 +48,7 @@ namespace WhiteMvvm.Services.Navigation
         {
             return InternalNavigateToAsync(typeof(TViewModel), parameter);
         }
+
         /// <summary>
         /// generic async method to push page as modal or start app with this page take one optional parameter which will send to view model type you inserted
         /// </summary>
@@ -80,7 +89,7 @@ namespace WhiteMvvm.Services.Navigation
         /// </summary>
         /// <param name="pageContainer"></param>
         /// <returns></returns>
-        public async Task<bool> ChangeDetailPage(PageContainer pageContainer)
+        public bool ChangeDetailPage(PageContainer pageContainer)
         {
             try
             {
@@ -93,21 +102,21 @@ namespace WhiteMvvm.Services.Navigation
                 var currentMasterDetailPage = Application.Current.MainPage;
                 if (currentMasterDetailPage is MasterDetailPage baseMasterDetail)
                 {
-                    await InternalChangeDetailPage(pageContainer, baseMasterDetail);
+                    InternalChangeDetailPage(pageContainer, baseMasterDetail);
                     return true;
                 }
 
                 currentMasterDetailPage = modalStack.FirstOrDefault(x => x.GetType() == typeof(MasterDetailPage));
                 if (currentMasterDetailPage is MasterDetailPage modalMasterDetail)
                 {
-                    await InternalChangeDetailPage(pageContainer, modalMasterDetail);
+                    InternalChangeDetailPage(pageContainer, modalMasterDetail);
                     return true;
                 }
 
                 currentMasterDetailPage = navigationStack.FirstOrDefault(x => x.GetType() == typeof(MasterDetailPage));
                 if (currentMasterDetailPage is MasterDetailPage masterDetailInNavigation)
                 {
-                    await InternalChangeDetailPage(pageContainer, masterDetailInNavigation);
+                    InternalChangeDetailPage(pageContainer, masterDetailInNavigation);
                     return true;
                 }
                 return false;
@@ -123,7 +132,7 @@ namespace WhiteMvvm.Services.Navigation
         /// </summary>
         /// <param name="pageContainer"></param>
         /// <returns>boolean whatever the page added successfully or not</returns>
-        public async Task<bool> AddPageToTabbedPage(PageContainer pageContainer)
+        public  bool AddPageToTabbedPage(PageContainer pageContainer)
         {
             try
             {
@@ -136,21 +145,21 @@ namespace WhiteMvvm.Services.Navigation
                 var currentTabbedPage = Application.Current.MainPage;
                 if (currentTabbedPage is TabbedPage baseTabbedPage)
                 {
-                    await InternalAddPageToTabbedPage(pageContainer, baseTabbedPage);
+                    InternalAddPageToTabbedPage(pageContainer, baseTabbedPage);
                     return true;
                 }
 
                 currentTabbedPage = modalStack.FirstOrDefault(x => x.GetType() == typeof(TabbedPage));
                 if (currentTabbedPage is TabbedPage modalTabbedPage)
                 {
-                    await InternalAddPageToTabbedPage(pageContainer, modalTabbedPage);
+                    InternalAddPageToTabbedPage(pageContainer, modalTabbedPage);
                     return true;
                 }
 
                 currentTabbedPage = navigationStack.FirstOrDefault(x => x.GetType() == typeof(TabbedPage));
                 if (currentTabbedPage is TabbedPage tabbedPageInNavigation)
                 {
-                    await InternalAddPageToTabbedPage(pageContainer, tabbedPageInNavigation);
+                    InternalAddPageToTabbedPage(pageContainer, tabbedPageInNavigation);
                     return true;
                 }
                 return false;
@@ -168,24 +177,24 @@ namespace WhiteMvvm.Services.Navigation
         private async Task InternalNavigateToAsync(Type viewModelType, object parameter)
         {
 
-            var page = CreatePage(viewModelType);
+            var page = _resolve.CreatePage(viewModelType);
 
             if (Navigation != null && Navigation.NavigationStack.Count > 0)
             {
                 await Navigation.PushAsync(page);
-            }            
+            }
 
             if (page != null)
             {
                 if (page.BindingContext is BaseViewModel viewModel)
                 {
-                    await viewModel.InternalInitializeAsync(parameter);
+                    viewModel.InternalInitialize(parameter);
                 }
             }
         }
         private async Task InternalNavigateModalToAsync(Type viewModelType, object parameter, bool isNavigationPage)
         {
-            var page = CreatePage(viewModelType);
+            var page = _resolve.CreatePage(viewModelType);
             if (Navigation != null)
             {
                 await Navigation.PushModalAsync(isNavigationPage ? new NavigationPage(page) : page);
@@ -198,7 +207,7 @@ namespace WhiteMvvm.Services.Navigation
             {
                 if (page.BindingContext is BaseViewModel viewModel)
                 {
-                    await viewModel.InternalInitializeAsync(parameter);
+                    viewModel.InternalInitialize(parameter);
                 }
             }
         }
@@ -208,13 +217,13 @@ namespace WhiteMvvm.Services.Navigation
                 throw new ArgumentNullException();
             master.IsNavigationPage = true;
             var masterViewModel = master.ViewModel;
-            var masterPage = CreatePage(masterViewModel.GetType());
+            var masterPage = _resolve.CreatePage(masterViewModel.GetType());
             if (string.IsNullOrEmpty(masterPage.Title))
             {
                 masterPage.Title = "Master Title";
             }
             var detailViewModel = detail.ViewModel;
-            var detailPage = CreatePage(detailViewModel.GetType());
+            var detailPage = _resolve.CreatePage(detailViewModel.GetType());
 
             if (masterDetailPage == null)
                 masterDetailPage = new MasterDetailPage();
@@ -237,23 +246,23 @@ namespace WhiteMvvm.Services.Navigation
             {
                 Application.Current.MainPage = masterDetailPage;
             }
-            await masterViewModel.InitializeAsync(master.Parameter);
-            await detailViewModel.InitializeAsync(detail.Parameter);
+            masterViewModel.Initialize(master.Parameter);
+            detailViewModel.Initialize(detail.Parameter);
         }
-        private async Task InternalChangeDetailPage(PageContainer pageContainer, MasterDetailPage masterDetail)
+        private void InternalChangeDetailPage(PageContainer pageContainer, MasterDetailPage masterDetail)
         {
             var viewModelType = pageContainer.ViewModel;
-            var page = CreatePage(viewModelType.GetType());
+            var page = _resolve.CreatePage(viewModelType.GetType());
             masterDetail.Detail = pageContainer.IsNavigationPage ? new NavigationPage(page) : page;
-            await pageContainer.ViewModel.InitializeAsync(pageContainer.Parameter);
+            pageContainer.ViewModel.Initialize(pageContainer.Parameter);
             masterDetail.IsPresented = false;
         }
-        private async Task InternalAddPageToTabbedPage(PageContainer pageContainer, TabbedPage tabbedPage)
+        private void InternalAddPageToTabbedPage(PageContainer pageContainer, TabbedPage tabbedPage)
         {
             var viewModelType = pageContainer.ViewModel;
-            var page = CreatePage(viewModelType.GetType());
+            var page = _resolve.CreatePage(viewModelType.GetType());
             tabbedPage.Children.Add(pageContainer.IsNavigationPage ? new NavigationPage(page) : page);
-            await pageContainer.ViewModel.InternalInitializeAsync(pageContainer.Parameter);
+            pageContainer.ViewModel.InternalInitialize(pageContainer.Parameter);
         }
         private async Task InternalNavigateToTabbedAsync(IList<PageContainer> pageContainers, TabbedPage tabbedPage = null, bool hasNavBar = true)
         {
@@ -277,12 +286,12 @@ namespace WhiteMvvm.Services.Navigation
                         return;
                     var pageContainer = pageContainers.FirstOrDefault(x => x.ViewModel.GetType() == viewModel.GetType());
                     var parameter = pageContainer?.Parameter;
-                    await viewModel.InternalInitializeAsync(parameter);
+                    viewModel.InternalInitialize(parameter);
                 };
                 foreach (var pageContainer in pageContainers)
                 {
                     var viewModelType = pageContainer.ViewModel;
-                    var page = CreatePage(viewModelType.GetType());
+                    var page = _resolve.CreatePage(viewModelType.GetType());
                     tabbedPage.Children.Add(pageContainer.IsNavigationPage ? new NavigationPage(page) : page);
                 }
                 var navigation = Application.Current.MainPage;
@@ -296,27 +305,6 @@ namespace WhiteMvvm.Services.Navigation
                     Application.Current.MainPage = tabbedPage;
                 }
             }
-        }
-        private Type GetPageTypeForViewModel(Type viewModelType)
-        {
-            var viewName = viewModelType.Name.Replace("ViewModel", "Page");
-            var namespaceName = viewModelType.Namespace.Replace("ViewModels", "Views");
-            var viewFullName = string.Format(CultureInfo.InvariantCulture, "{0}.{1}", namespaceName, viewName);
-            var viewModelAssemblyName = viewModelType.GetTypeInfo().Assembly.FullName;
-            var viewAssemblyName = string.Format(CultureInfo.InvariantCulture, "{0}, {1}", viewFullName, viewModelAssemblyName);
-            var viewType = Type.GetType(viewAssemblyName);
-            return viewType;
-        }
-        private Page CreatePage(Type viewModelType)
-        {
-            var pageType = GetPageTypeForViewModel(viewModelType);
-            if (pageType == null)
-            {
-                throw new Exception($"Cannot locate page type for {viewModelType}");
-            }
-
-            var page = Activator.CreateInstance(pageType) as Page;
-            return page;
         }
     }
 }

@@ -13,4 +13,8 @@
     <PackageReference Include="Xamarin.Forms.Mocks" Version="3.5.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WhiteMvvm\WhiteMvvm.csproj" />
+  </ItemGroup>
+
 </Project>

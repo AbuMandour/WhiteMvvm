@@ -8,13 +8,13 @@ using WhiteSample.ViewModels;
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
 namespace WhiteSample
 {
-    public partial class App : WhiteApp
+    public partial class App : WhiteApplication
     {
         public App()
         {
             InitializeComponent();
             ViewModelLocator.Init();
-            InitializeApp<HomeViewModel>(isNavigationPage: true);
+            SetHomePage<HomeViewModel>(isNavigationPage: true);
         }
 
         protected override void OnStart()

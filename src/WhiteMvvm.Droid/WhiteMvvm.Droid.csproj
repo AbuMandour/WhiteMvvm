@@ -87,6 +87,12 @@
       <Version>27.0.2.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WhiteMvvm\WhiteMvvm.csproj">
+      <Project>{1C18B352-3D51-469F-A0FF-A2D365C3E419}</Project>
+      <Name>WhiteMvvm</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

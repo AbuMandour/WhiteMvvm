@@ -7,13 +7,18 @@ using WhiteSample.Services;
 
 namespace WhiteSample.ViewModels
 {
-    public class ViewModelLocator : BaseViewModelLocator
+    public class ViewModelLocator : BaseLocator
     {
         public static void Init()
         {
-            Register<HomeViewModel>();
-            Register<IConnectivity, ConnectivityService>();
-            Register<IHomeService, HomeService>();
+            Instance.Register<HomeViewModel>();
+            Instance.Register<IConnectivity, ConnectivityService>();
+            Instance.Register<IHomeService, HomeService>();
+        }
+
+        public override void MocksUpdate(bool useMocks)
+        {
+            base.MocksUpdate(useMocks);
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Globalization;
 using System.Reflection;
-using Unity;
+using WhiteMvvm.Configuration;
+using WhiteMvvm.Services.Resolve;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
@@ -11,9 +12,11 @@ namespace WhiteMvvm.Bases
 {
     public class BaseContentPage : ContentPage
     {
+        private static IReflectionResolve _resolve;
         public BaseContentPage()
         {
             On<Xamarin.Forms.PlatformConfiguration.iOS>().SetUseSafeArea(true);
+            _resolve = BaseLocator.Instance.Resolve<IReflectionResolve>();
         }
         public BaseViewModel ViewModel => BindingContext as BaseViewModel;
         protected override void OnAppearing()
@@ -32,36 +35,13 @@ namespace WhiteMvvm.Bases
             return result;
         }
         public static readonly BindableProperty AutoWireViewModelProperty =
-            BindableProperty.CreateAttached("AutoWireViewModel", typeof(bool), typeof(BaseViewModelLocator), default(bool), propertyChanged: OnAutoWireViewModelChanged);
+            BindableProperty.CreateAttached("AutoWireViewModel", typeof(bool), typeof(BaseContentPage), default(bool),
+                propertyChanged: OnAutoWireViewModelChanged);
         private static void OnAutoWireViewModelChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            try
-            {
-                if (!(bindable is Element view))
-                {
-                    return;
-                }
-                var viewType = view.GetType();
-                var viewName = viewType.Name.Replace("Page", "ViewModel");
-                if (viewType.Namespace == null)
-                    return;
-                var namespaceName = viewType.Namespace.Replace("Views", "ViewModels");
-                var viewFullName = string.Format(CultureInfo.InvariantCulture, "{0}.{1}", namespaceName, viewName);
-                var viewAssemblyName = viewType.GetTypeInfo().Assembly.FullName;
-                var viewModelName = string.Format(CultureInfo.InvariantCulture, "{0}, {1}", viewFullName, viewAssemblyName);
-                var viewModelType = Type.GetType(viewModelName);
-                if (viewModelType == null)
-                {
-                    return;
-                }
-                var viewModel = BaseViewModelLocator.Resolve(viewModelType);
-                view.BindingContext = viewModel;
-            }
-            catch (Exception ex)
-            {
-                Console.Write(ex);
-                throw new Exception("Couldn't wire view model to page");
-            }
+            if ((!(bindable is BaseContentPage page)))
+                return;
+            page.BindingContext = _resolve.CreateViewModel(page.GetType());
         }
         public static bool GetAutoWireViewModel(BindableObject bindable)
         {

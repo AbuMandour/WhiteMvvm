@@ -16,17 +16,18 @@ namespace WhiteMvvmUnitTest.Services
     public class NavigationServicesTest : BaseTest
     {
         [TestMethod]
-        public async Task InitializeAppNavigationWithContentPage()
+        public void InitializeAppNavigationWithContentPage()
         {
-            //Arrange                      
+            //Arrange   
+            var app = new MockApp();
             //Act
-            await WhiteApp.InitializeApp<HomeViewModel>();
+            app.SetHomePage<HomeViewModel>();            
             //Assert
-            var homePage = Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault(x => x.BindingContext.GetType() == typeof(HomeViewModel));
+            var homePage = app.MainPage.BindingContext.GetType() == typeof(HomeViewModel);
             Assert.IsNotNull(homePage);
         }
         [TestMethod]
-        public async Task InitializeAppNavigationWithTabbedPage()
+        public void InitializeAppNavigationWithTabbedPage()
         {
             //Arrange                      
             var pageContainers = new List<PageContainer>
@@ -48,21 +49,23 @@ namespace WhiteMvvmUnitTest.Services
                     IsNavigationPage = false, Parameter = "Page three", ViewModel = new View3ViewModel()
                 }
             };
+            var app = new MockApp();
             //Act
-            await WhiteApp.InitializeApp(pageContainers);
+            app.SetHomePage(pageContainers);
             //Assert
-            var tabbedIsExists = Application.Current.MainPage.GetType() == typeof(TabbedPage);
+            var tabbedIsExists = app.MainPage.GetType() == typeof(TabbedPage);
             Assert.IsTrue(tabbedIsExists);
         }
         [TestMethod]
-        public async Task InitializeAppNavigationWithMasterDetialPage()
+        public void InitializeAppNavigationWithMasterDetialPage()
         {
             //Arrange                      
             var detialPage = new PageContainer() { IsNavigationPage = true, Parameter = "Detail Page", ViewModel = new HomeViewModel(), PageName = "Detail Page" };
             var masterPage = new PageContainer() { IsNavigationPage = false, Parameter = "Master Page", ViewModel = new View1ViewModel(), PageName = "Master Page" };
             Application.Current = new MockApp();
+            var app = new MockApp();
             //Act
-            await WhiteApp.InitializeApp(masterPage,detialPage);
+            app.SetHomePage(masterPage,detialPage);
             //Assert
             var masterIsExists = Application.Current.MainPage.GetType() == typeof(MasterDetailPage);
             Assert.IsTrue(masterIsExists);
@@ -70,9 +73,11 @@ namespace WhiteMvvmUnitTest.Services
         [TestMethod]
         public void NavigateTo_WithOutParameter()
         {
-            //Arrange           
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();            
+            //Arrange   
+            var app = new MockApp();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();            
             //Act
+            app.SetHomePage<View1ViewModel>(isNavigationPage: true);
             navigationService.NavigateToAsync<HomeViewModel>();
             //Assert
             var homePage = Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault(x => x.GetType() == typeof(HomePage));
@@ -81,9 +86,11 @@ namespace WhiteMvvmUnitTest.Services
         [TestMethod]
         public void NavigateTo_WithParameter()
         {
-            //Arrange           
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            //Arrange  
+            var app = new MockApp();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
             //Act
+            app.SetHomePage<View1ViewModel>(isNavigationPage:true);
             navigationService.NavigateToAsync<HomeViewModel>("Hello Test");
             var homePage = Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault(x => x.GetType() == typeof(HomePage));
             var homeViewModel = (HomeViewModel)homePage?.BindingContext;
@@ -94,26 +101,26 @@ namespace WhiteMvvmUnitTest.Services
         [TestMethod]
         public void NavigateToModal_WithOutParameter()
         {
-            //Arrange           
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            //Arrange          
+            var app = new MockApp();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
             //Act
+            app.SetHomePage<View1ViewModel>();
             navigationService.NavigateModalToAsync<HomeViewModel>();
             //Assert
-            var homePage = Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault(x => x.GetType() == typeof(HomePage));
+            var homePage = Application.Current.MainPage.Navigation.ModalStack.LastOrDefault(x => x.GetType() == typeof(HomePage));
             Assert.IsNotNull(homePage);
         }
         [TestMethod]
         public void NavigateToModal_WithParameter()
         {
             //Arrange           
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            var app = new MockApp();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
             //Act
+            app.SetHomePage<View1ViewModel>();
             navigationService.NavigateModalToAsync<HomeViewModel>("Hello Test");
-            var homePage = Application.Current.MainPage.Navigation.ModalStack.LastOrDefault(x => x.GetType() == typeof(HomePage));
-            if (homePage == null)
-            {
-                homePage = Application.Current.MainPage.Navigation.NavigationStack.LastOrDefault(x => x.GetType() == typeof(HomePage));
-            }
+            var homePage = app.MainPage.Navigation.ModalStack.LastOrDefault(x => x.GetType() == typeof(HomePage));           
             var homeViewModel = (HomeViewModel)homePage?.BindingContext;
             //Assert
             Assert.IsNotNull(homePage);
@@ -129,36 +136,36 @@ namespace WhiteMvvmUnitTest.Services
                 {
                     IsNavigationPage = true,
                     Parameter = "Home Page",
-                    ViewModel = BaseViewModelLocator.Resolve<HomeViewModel>()
+                    ViewModel = BaseLocator.Instance.Resolve<HomeViewModel>()
                 },
                 new PageContainer()
                 {
                     IsNavigationPage = false,
                     Parameter = "Page One",
-                    ViewModel = BaseViewModelLocator.Resolve<View1ViewModel>()
+                    ViewModel = BaseLocator.Instance.Resolve<View1ViewModel>()
                 },
                 new PageContainer()
                 {
                     IsNavigationPage = false,
                     Parameter = "Page two",
-                    ViewModel = BaseViewModelLocator.Resolve<View2ViewModel>()
+                    ViewModel = BaseLocator.Instance.Resolve<View2ViewModel>()
                 },
                 new PageContainer()
                 {
                     IsNavigationPage = false,
                     Parameter = "Page three",
-                    ViewModel = BaseViewModelLocator.Resolve<View3ViewModel>()
+                    ViewModel = BaseLocator.Instance.Resolve<View3ViewModel>()
                 }
             };
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
+            var app = new MockApp();
             //Act
-            var initializeAsyncTask = WhiteApp.InitializeApp<HomeViewModel>();
+            app.SetHomePage<HomeViewModel>();
             var navigateToTabbedAsyncTask = navigationService.NavigateToTabbedAsync(pageContainers);
             var isTabbedExists = ModalStack.Any(x => x.GetType() == typeof(TabbedPage)) ||
                                  NavigationStack.Any(x => x.GetType() == typeof(TabbedPage));
 
             //Assert
-            Assert.IsTrue(initializeAsyncTask.IsCompleted);
             Assert.IsTrue(navigateToTabbedAsyncTask.IsCompleted);
             Assert.IsTrue(isTabbedExists);
         }
@@ -166,26 +173,26 @@ namespace WhiteMvvmUnitTest.Services
         public void NavigateToMasterDetailPage()
         {
             //Arrange
+            var app = new MockApp();
             var masterPage = new PageContainer()
             {
                 IsNavigationPage = true,
                 Parameter = "Master Page",
-                ViewModel = BaseViewModelLocator.Resolve<HomeViewModel>()
+                ViewModel = BaseLocator.Instance.Resolve<HomeViewModel>()
             };
             var detailPage = new PageContainer()
             {
                 IsNavigationPage = true,
                 Parameter = "Detail Page",
-                ViewModel = BaseViewModelLocator.Resolve<HomeViewModel>()
+                ViewModel = BaseLocator.Instance.Resolve<HomeViewModel>()
             }; ;
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
             //Act
-            var initializeAsyncTask = WhiteApp.InitializeApp<HomeViewModel>();
+            app.SetHomePage<HomeViewModel>();
             var pushMasterDetailsTask = navigationService.NavigateToMasterDetailsAsync(masterPage,detailPage);
             var isMasterDetailExists = ModalStack.Any(x => x.GetType() == typeof(MasterDetailPage)) ||
                                        NavigationStack.Any(x => x.GetType() == typeof(MasterDetailPage));
             //Assert
-            Assert.IsTrue(initializeAsyncTask.IsCompleted);
             Assert.IsTrue(pushMasterDetailsTask.IsCompleted);
             Assert.IsTrue(isMasterDetailExists);
         }
@@ -193,38 +200,38 @@ namespace WhiteMvvmUnitTest.Services
         public  void ChangeDetailPageInMasterDetailTest()
         {
             //Arrange
+            var app = new MockApp();
             var masterPage = new PageContainer()
             {
                 IsNavigationPage = true,
                 Parameter = "Master Page",
-                ViewModel = BaseViewModelLocator.Resolve<HomeViewModel>()
+                ViewModel = BaseLocator.Instance.Resolve<HomeViewModel>()
             };
             var detailPage = new PageContainer()
             {
                 IsNavigationPage = true,
                 Parameter = "Detail Page",
-                ViewModel = BaseViewModelLocator.Resolve<HomeViewModel>()
+                ViewModel = BaseLocator.Instance.Resolve<HomeViewModel>()
             };
             var newDetailPage = new PageContainer()
             {
                 IsNavigationPage = true,
                 Parameter = "New Detail Page",
-                ViewModel = BaseViewModelLocator.Resolve<HomeViewModel>()
+                ViewModel = BaseLocator.Instance.Resolve<HomeViewModel>()
             };
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
             //Act
-            var task = WhiteApp.InitializeApp(masterPage, detailPage);
-
-            var isDetailPageChanged =  navigationService.ChangeDetailPage(newDetailPage).Result;
+            app.SetHomePage(masterPage, detailPage);
+            var isDetailPageChanged =  navigationService.ChangeDetailPage(newDetailPage);
             //Assert
-            Assert.IsTrue(task.IsCompleted);
             Assert.IsTrue(isDetailPageChanged);
         }
         [TestMethod]
         public void AddTabbedPageOnRunTime()
         {
-            //Arrange                      
-            var navigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            //Arrange              
+            var app = new MockApp();
+            var navigationService = BaseLocator.Instance.Resolve<INavigationService>();
             var pageContainers = new List<PageContainer>
             {
                 new PageContainer()
@@ -247,11 +254,10 @@ namespace WhiteMvvmUnitTest.Services
                 ViewModel = new View3ViewModel()
             };
             //Act
-            var initializeAsyncTask = WhiteApp.InitializeApp(pageContainers);            
-            var isPageAdded = navigationService.AddPageToTabbedPage(newPage).Result;
+            app.SetHomePage(pageContainers);            
+            var isPageAdded = navigationService.AddPageToTabbedPage(newPage);
             //Assert
             Assert.IsTrue(isPageAdded);
-            Assert.IsTrue(initializeAsyncTask.IsCompleted);
         }        
     }
 }

@@ -32,10 +32,12 @@ namespace WhiteSample.ViewModels
             _connectivity = connectivity;
             SelectProductCommand = new TaskCommand(OnSelectProductTask);
         }
-        protected override async Task InitializeAsync(object navigationData)
+
+        protected override async Task OnAppearing()
         {
             Products = await LoadData();
         }
+
         private async Task OnSelectProductTask(object obj)
         {
             var product = (Product)obj;

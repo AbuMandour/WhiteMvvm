@@ -15,20 +15,20 @@ namespace WhiteMvvm.Bases
         public object NavigationData { get; private set; }
         public BaseViewModel()
         {
-            DialogService = BaseViewModelLocator.Resolve<IDialogService>();
-            NavigationService = BaseViewModelLocator.Resolve<INavigationService>();
+            DialogService = BaseLocator.Instance.Resolve<IDialogService>();
+            NavigationService = BaseLocator.Instance.Resolve<INavigationService>();
         }
         public bool IsBusy
         {
             get => _isBusy;
             set
             {
-                if (ViewModelConfig.Current.UseBaseIndicator)
+                if (ConfigurationManager.Current.UseBaseIndicator)
                 {
                     if (value)
                     {
 
-                        DialogService.ShowLoading(ViewModelConfig.Current.IndicatorMaskType);
+                        DialogService.ShowLoading(ConfigurationManager.Current.IndicatorMaskType);
                     }
                     else
                     {
@@ -55,17 +55,16 @@ namespace WhiteMvvm.Bases
         {
             return Task.CompletedTask;
         }
-        protected internal virtual Task InitializeAsync(object navigationData)
+        protected internal virtual void Initialize(object navigationData)
         {
             NavigationData = navigationData;
-            return Task.CompletedTask;
         }
-        internal Task InternalInitializeAsync(object navigationData)
+        internal void InternalInitialize(object navigationData)
         {
             if (_isInitialize)
-                return Task.CompletedTask;
+                return;
             _isInitialize = true;
-            return InitializeAsync(navigationData);
+            Initialize(navigationData);
         }
         protected internal virtual bool HandleBackButton()
         {

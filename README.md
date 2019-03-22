@@ -9,7 +9,7 @@ White Solution UnitTest [![Build status](https://abumandour.visualstudio.com/Whi
 
 White Solution is an MVVM framework for Xamarin Forms Solutions to make the code as white "Clear, simple and powerful"
 
-## Get Started
+## GetStarted
 you can download the nuget for portable project from here https://www.nuget.org/packages/WhiteMvvm/
 
 and download the nuget for Android project from here https://www.nuget.org/packages/WhiteMvvm.Droid/
@@ -24,6 +24,9 @@ then you should call this method in each platform
 ***Android***: WhiteMvvm.Droid.PlatformDorid.Init(this,savedInstanceState);
 
 ***iOS***: WhiteMvvm.Droid.PlatformDorid.Init();
+
+Now you ready to use white mvvm, welcome :)
+
  
 ## Documentation
 
@@ -58,7 +61,7 @@ the following code is an example in C#
 
                 EventName = "ItemSelected",
 
-                Command = ((HomePageViewModel)BindingContext).OutputAgeCommand,
+                Command = ((HomePageViewModel)BindingContext).SelectProductCommand,
 
                 Converter = new SelectedItemEventArgsToSelectedItemConverter()
 
@@ -81,7 +84,7 @@ and this for XAML
 
             <ListView.Behaviors>
 
-                <behavior:EventToCommandBehavior EventName="ItemSelected" Command="{Binding OutputAgeCommand}" />
+                <behavior:EventToCommandBehavior EventName="ItemSelected" Command="{Binding SelectProductCommand}" />
 
             </ListView.Behaviors>
 
@@ -89,47 +92,11 @@ and this for XAML
 
 
 ### CustomControls
-every Xamarin Forms application need a custom control and renderers to for custom UI in Custom Control assembly will have all responsible to hold custom controls, for now, we only have a _Grid View_ 
+every Xamarin Forms application need a custom control and renderers to for custom UI in Custom Control assembly will have all responsible to hold custom controls, for now, we only have a _Content Presenter_ 
 
-#### GridView
+#### Content Presenter
 
-grid view is a control simply make grid layout bindable object with the data source and item template
-##### Properties
-
-- **ItemsSource**: _IEnumerable_ property to set data source for every item template
-- **SelectedItem**: _Object_ the item which selected on tapped
--**SelectedCommand**: _ICommand_ fires when the user tapped in item
-- **ItemMargin**: _Thikness_  margin for each item
-- **ItemTemplate**: _DataTemplate_ for each item 
-
-##### How to use
-           <customcontrol:GridView AutomationId="productGridView"
-                                ItemMargin="5"
-                                HorizontalOptions="FillAndExpand"
-                                VerticalOptions="FillAndExpand"
-                                SelectedCommand="{Binding SelectProductCommand}"
-                                ItemsSource="{Binding Products}">
-                <customcontrol:GridView.ItemTemplate>
-                    <DataTemplate>
-                        <Frame WidthRequest="80"
-                               HeightRequest="80"
-                               IsClippedToBounds="True"
-                               CornerRadius="5"
-                               BackgroundColor="LightSeaGreen">
-                            <StackLayout 
-                                 HorizontalOptions="FillAndExpand"
-                                 VerticalOptions="FillAndExpand">
-                                <Label  HorizontalOptions="Center"
-                                        FontSize="18"
-                                        Text="{Binding Name}"/>
-                                <Label HorizontalOptions="Center"
-                                       FontSize="14"
-                                       Text="{Binding Price}"/>
-                            </StackLayout>
-                        </Frame>
-                    </DataTemplate>
-                </customcontrol:GridView.ItemTemplate>
-            </customcontrol:GridView>`
+Content Presenter is a control simply allow you to create a data template for single record
 
 ### Bases
 
@@ -149,9 +116,31 @@ in white MVVM we implement many services such as Navigation, Dialog or Device Ut
 #### Dialog
 Dialog service is an assembly has the responsibility of any regular popup also loading indicator we depend on UserDialogs plugin yo implement this all dialog
 
+             await DialogService.ShowAlertAsync("No Internet Connection", "Internet", "Ok");
+
+        
 #### Navigation 
 navigation in white MVVM we go with the of most of the MVVM framework and Xamarin recommendation way which depend on navigating view model instead of pages to reach a totally separated code
 the aim to make view only responsible for design and make navigation system in view model but here naming convention is very imported as all pages should end with "view" and all view models should end with ViewModel and use master details page and tabbed page we must use page container class which has options and navigate from view model
+
+##### GetStarted
+
+first we should change some code in app class, like this:
+
+
+             public partial class App : WhiteApplication
+
+ _to_
+
+             public partial class App : WhiteApplication
+        
+
+then select our launch page with SetHomePage method: 
+
+             SetHomePage<HomeViewModel>
+
+        
+now we can use all navigation methods to navigate between view models
 
 #### DeviceUtilities
 the assembly which contain all Xamarin Essential services with interface approach and mocks for unit test
@@ -170,20 +159,6 @@ in Async programming try to avoid void with async methods and all of the command
 #### TransitionalList
 this a list that help Transition layer to do ToModel method in the list
 
-### Validations
-Any app that accepts input from users should ensure that the input is valid. An app could, for example, check for input that contains only characters in a particular range, is of a certain length, or matches a particular format. Without validation, a user can supply data that causes the app to fail. Validation enforces business rules and prevents an attacker from injecting malicious data.
-
-In the context of the Model-View-ViewModel (MVVM) pattern, a view model or model will often be required to perform data validation and signal any validation errors to the view so that the user can correct them. any mobile app performs synchronous client-side validation of view model properties and notifies the user of any validation errors by highlighting the control that contains the invalid data, and by displaying error messages that inform the user of why the data is invalid.
-
-#### Specifying Validation Rules
-Validation rules are specified by creating a class that derives from the IValidationRule<T> interface, This interface specifies that a validation rule class must provide a boolean Check method that is used to perform the required validation and a ValidationMessage property whose value is the validation error message that will be displayed if validation fails.
-
-#### Adding Validation Rules to a Property
-view model properties that require validation are declared to be of type ValidatableObject<T>, where T is the type of the data to be validated
-For validation to occur, validation rules must be added to the Validations collection of each ValidatableObject<T> instance
-#### Triggering Validation
-Validation can be triggered manually for a view model property. For example, this occurs in any mobile app when the user taps the Login button on the LoginView we call Validate method which performs validation of the username and password entered by the user on the LoginView, by invoking the Validate method on each ValidatableObject<T> instance.
-This method clears the Errors collection and then retrieves any validation rules that were added to the object's Validations collection. The Check method for each retrieved validation rule is executed, and the ValidationMessage property value for any validation rule that fails to validate the data is added to the Errors collection of the ValidatableObject<T> instance. Finally, the IsValid property is set, and its value is returned to the calling method, indicating whether validation succeeded or failed.
 
 #### Notes:
 - you must make syre that we follow our naming conventions in naming of view and view model
